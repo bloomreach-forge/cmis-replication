@@ -26,15 +26,17 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.javaVersion>1.5</project.build.javaVersion>
     
-    <hippo.hst.version>2.22.00</hippo.hst.version>
-    <servlet-api.version>2.4</servlet-api.version>
     <jcr.version>2.0</jcr.version>
+    <hippo.repository.version>2.20.00</hippo.repository.version>
     
     <lib.junit.version>4.8.2</lib.junit.version>
     <lib.easymock.version>3.0</lib.easymock.version>
     <lib.slf4j.version>1.6.1</lib.slf4j.version>
     <lib.log4j.version>1.2.16</lib.log4j.version>
-    <lib.commons-beanutils.version>1.8.0</lib.commons-beanutils.version>
+    <lib.chemistry-opencmis.version>0.3.0</lib.chemistry-opencmis.version>
+    <lib.antlr.version>3.1.3</lib.antlr.version>
+    <lib.commons-lang.version>2.5</lib.commons-lang.version>
+    <lib.commons-io.version>1.4</lib.commons-io.version>
 
     <plugin.checkstyle.version>2.6</plugin.checkstyle.version>
     <plugin.cobertura.version>2.4</plugin.cobertura.version>
@@ -122,13 +124,6 @@
     </dependency>
     
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>${servlet-api.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    
-    <dependency>
       <groupId>javax.jcr</groupId>
       <artifactId>jcr</artifactId>
       <version>${jcr.version}</version>
@@ -136,13 +131,60 @@
     </dependency>
     
     <dependency>
-      <groupId>org.onehippo.cms7.hst.dependencies</groupId>
-      <artifactId>hst-shared-dependencies</artifactId>
-      <version>${hippo.hst.version}</version>
-      <type>pom</type>
+      <groupId>org.onehippo.cms7</groupId>
+      <artifactId>hippo-repository-api</artifactId>
+      <version>${hippo.repository.version}</version>
       <scope>provided</scope>
     </dependency>
-
+    
+    <dependency>
+      <groupId>org.apache.chemistry.opencmis</groupId>
+      <artifactId>chemistry-opencmis-commons-api</artifactId>
+      <version>${lib.chemistry-opencmis.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.chemistry.opencmis</groupId>
+      <artifactId>chemistry-opencmis-commons-impl</artifactId>
+      <version>${lib.chemistry-opencmis.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.chemistry.opencmis</groupId>
+      <artifactId>chemistry-opencmis-client-api</artifactId>
+      <version>${lib.chemistry-opencmis.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.chemistry.opencmis</groupId>
+      <artifactId>chemistry-opencmis-client-impl</artifactId>
+      <version>${lib.chemistry-opencmis.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.chemistry.opencmis</groupId>
+      <artifactId>chemistry-opencmis-client-bindings</artifactId>
+      <version>${lib.chemistry-opencmis.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr-runtime</artifactId>
+      <version>${lib.antlr.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>${lib.commons-lang.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${lib.commons-io.version}</version>
+    </dependency>
+    
     <!-- TEST DEPENDENCIES -->
 
     <dependency>
@@ -178,26 +220,6 @@
       <artifactId>easymock</artifactId>
       <version>${lib.easymock.version}</version>
       <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.onehippo.cms7.hst</groupId>
-      <artifactId>hst-mock</artifactId>
-      <version>${hippo.hst.version}</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>${lib.commons-beanutils.version}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     
   </dependencies>
