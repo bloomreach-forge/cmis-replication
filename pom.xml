@@ -141,30 +141,60 @@
       <groupId>org.apache.chemistry.opencmis</groupId>
       <artifactId>chemistry-opencmis-commons-api</artifactId>
       <version>${lib.chemistry-opencmis.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     
     <dependency>
       <groupId>org.apache.chemistry.opencmis</groupId>
       <artifactId>chemistry-opencmis-commons-impl</artifactId>
       <version>${lib.chemistry-opencmis.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     
     <dependency>
       <groupId>org.apache.chemistry.opencmis</groupId>
       <artifactId>chemistry-opencmis-client-api</artifactId>
       <version>${lib.chemistry-opencmis.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     
     <dependency>
       <groupId>org.apache.chemistry.opencmis</groupId>
       <artifactId>chemistry-opencmis-client-impl</artifactId>
       <version>${lib.chemistry-opencmis.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     
     <dependency>
       <groupId>org.apache.chemistry.opencmis</groupId>
       <artifactId>chemistry-opencmis-client-bindings</artifactId>
       <version>${lib.chemistry-opencmis.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     
     <dependency>
@@ -185,6 +215,13 @@
       <version>${lib.commons-io.version}</version>
     </dependency>
     
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${lib.slf4j.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    
     <!-- TEST DEPENDENCIES -->
 
     <dependency>
@@ -194,13 +231,6 @@
       <scope>test</scope>
     </dependency>
   
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <version>${lib.slf4j.version}</version>
-      <scope>test</scope>
-    </dependency>
-    
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
