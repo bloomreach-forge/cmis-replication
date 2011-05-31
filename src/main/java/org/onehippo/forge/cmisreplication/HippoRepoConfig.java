@@ -15,30 +15,10 @@
  */
 package org.onehippo.forge.cmisreplication;
 
-import javax.jcr.Credentials;
-import javax.jcr.Repository;
 
 public class HippoRepoConfig {
     
-    private Repository repository;
-    private Credentials defaultCredentials;
     private String rootPath;
-    
-    public Repository getRepository() {
-        return repository;
-    }
-    
-    public void setRepository(Repository repository) {
-        this.repository = repository;
-    }
-    
-    public Credentials getDefaultCredentials() {
-        return defaultCredentials;
-    }
-    
-    public void setDefaultCredentials(Credentials defaultCredentials) {
-        this.defaultCredentials = defaultCredentials;
-    }
     
     public String getRootPath() {
         return rootPath;

@@ -51,11 +51,16 @@ public class CmisDocumentsReplicator {
     
     private static Logger log = LoggerFactory.getLogger(CmisDocumentsReplicator.class);
     
+    private javax.jcr.Session jcrSession;
     private CmisRepoConfig cmisRepoConfig;
     private HippoRepoConfig hippoRepoConfig;
     private boolean updateCmisDocumentsToRepository;
     private boolean updateRepositoryDocumentsToCmis;
-
+    
+    public void setJcrSession(javax.jcr.Session jcrSession) {
+        this.jcrSession = jcrSession;
+    }
+    
     public CmisRepoConfig getCmisRepoConfig() {
         return cmisRepoConfig;
     }
@@ -110,11 +115,8 @@ public class CmisDocumentsReplicator {
     
     private void updateCmisDocumentsToRepository() throws RepositoryException, IOException {
         Session session = null;
-        javax.jcr.Session jcrSession = null;
         
         try {
-            jcrSession = hippoRepoConfig.getRepository().login(hippoRepoConfig.getDefaultCredentials());
-            
             session = createSession();
             OperationContext operationContext = session.createOperationContext();
             operationContext.setMaxItemsPerPage(cmisRepoConfig.getMaxItemsPerPage());
@@ -166,22 +168,13 @@ public class CmisDocumentsReplicator {
                 } catch (Exception ignore) {
                 }
             }
-            if (jcrSession != null) {
-                try {
-                    jcrSession.logout();
-                } catch (Exception ignore) {
-                }
-            }
         }
     }
     
     private void updateRepositoryDocumentsToCmis() throws RepositoryException, IOException {
         Session session = null;
-        javax.jcr.Session jcrSession = null;
         
         try {
-            jcrSession = hippoRepoConfig.getRepository().login(hippoRepoConfig.getDefaultCredentials());
-            
             session = createSession();
             OperationContext operationContext = session.createOperationContext();
             operationContext.setMaxItemsPerPage(cmisRepoConfig.getMaxItemsPerPage());
@@ -218,12 +211,6 @@ public class CmisDocumentsReplicator {
             if (session != null) {
                 try {
                     session.clear();
-                } catch (Exception ignore) {
-                }
-            }
-            if (jcrSession != null) {
-                try {
-                    jcrSession.logout();
                 } catch (Exception ignore) {
                 }
             }
