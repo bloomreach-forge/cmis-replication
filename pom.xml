@@ -18,7 +18,7 @@
   <description>CMIS Replication Components</description>
   <groupId>org.onehippo.forge.cmisreplication</groupId>
   <artifactId>cmisreplication</artifactId>
-  <version>1.01.00-SNAPSHOT</version>
+  <version>1.01.00</version>
   <url>http://cmisreplication.forge.onehippo.org/</url>
 
   <properties>
@@ -84,9 +84,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk</connection>
-    <developerConnection>scm:svn:http://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk</developerConnection>
-    <url>http://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk</url>
+    <connection>scm:svn:http://forge.onehippo.org/svn/cmisreplication/cmisreplication/tags/cmisreplication-1.01.00</connection>
+    <developerConnection>scm:svn:http://forge.onehippo.org/svn/cmisreplication/cmisreplication/tags/cmisreplication-1.01.00</developerConnection>
+    <url>http://forge.onehippo.org/svn/cmisreplication/cmisreplication/tags/cmisreplication-1.01.00</url>
   </scm>
 
   <issueManagement>
