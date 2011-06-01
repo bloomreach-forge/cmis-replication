@@ -42,6 +42,16 @@
           and configured in Spring beans assemblies.
         </p>
       </subsection>
+      <subsection name="Note On Clustering">
+        <p>
+          <em>
+            Note: The underlying Spring Daemon Module does not care any clustering issues by itself.
+            So, if you need to run a daemon module for a scheduling job only in single cluster node, then you should configure
+            the scheduler components properly. For example, you may choose Quartz scheduler component configuration
+            with JDBC JobStore instead of copying &amp; pasting the example shown in the examples.
+          </em>
+        </p>
+      </subsection>
     </section>
     <section name="Project status">
       <p>
