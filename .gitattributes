@@ -10,4 +10,16 @@ src/main/java/org/onehippo/forge/cmisreplication/util/CmisDocumentBinary.java -t
 src/main/resources/cmisreplication.cnd -text
 src/main/resources/hippoecm-extension.xml -text svneol=unset#text/plain
 src/main/resources/namespaces/cmisreplication.xml -text svneol=unset#text/plain
+src/site/checkstyle.xml -text svneol=unset#text/plain
+src/site/resources/images/nuxscreen1.png -text
+src/site/resources/images/nuxscreen2.png -text
+src/site/resources/images/nuxscreen3.png -text
+src/site/resources/images/nuxscreen4.png -text
+src/site/resources/images/nuxscreen5.png -text
+src/site/site.xml -text svneol=unset#text/plain
+src/site/xdoc/build-from-source.xml -text svneol=unset#text/plain
+src/site/xdoc/demo-with-nuxeo.xml -text svneol=unset#text/plain
+src/site/xdoc/index.xml -text svneol=unset#text/plain
+src/site/xdoc/install.xml -text svneol=unset#text/plain
+src/site/xdoc/release-notes.xml -text svneol=unset#text/plain
 src/test/java/org/onehippo/forge/cmisreplication/CmisTest.java -text svneol=unset#text/plain

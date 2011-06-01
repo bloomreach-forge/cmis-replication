@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+    Copyright 2010 Hippo Licensed under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under
+    the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+    OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and
+    limitations under the License.
+  --><!DOCTYPE document PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+  <properties>
+    <title>Demo with Nuxeo DM Server</title>
+  </properties>
+  <body>
+    <section name="Demo with Nuxeo DM Server">
+      
+      <subsection name="Introduction">
+        <p>In this demo, we will use Nuxeo DM Server as a CMIS Repository and show how to integrate it with Hippo Repository.</p>
+      </subsection>
+      
+      <subsection name="Install Nexeo DM Server">
+        <ol>
+          <li>
+            Download Nuxeo Document Management Server at <a href="http://www.nuxeo.com/" target="_blank">http://www.nuxeo.com/</a>.
+          </li>
+          <li>
+            Uncompress or install the package
+          </li>
+          <li>
+            Start Nuxeo DM Server like the following example:
+            <br/>
+            <pre>
+$ cd ./nuxeo-dm-5.4.1-tomcat/bin
+$ ./nuxeoctl console
+            </pre>
+          </li>
+          <li>You can log on to http://localhost:8080/nuxeo/ with Administrator/Administrator</li>
+          <li>Create a workspace and a section</li>
+          <li>Also add some files into workspace and publish those into the section for tests.</li>
+        </ol>
+      </subsection>
+      
+      <subsection name="Build CMIS Replication Demo Application">
+        <ol>
+          <li>
+            Check out http://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk. For example,
+            <br/>
+            <pre>$ svn checkout http://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk cmisreplication</pre>
+          </li>
+          <li>
+            Build with `mvn clean install'
+          </li>
+          <li>
+            Check out http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk. For example,
+            <br/>
+            <pre>$ svn checkout http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk cmisreplication-demo</pre>
+          </li>
+          <li>
+            Build with `mvn clean install'
+          </li>
+        </ol>
+      </subsection>
+      
+      <subsection name="Configure CMIS Repository Source and HIPPO Repository Target">
+        <ol>
+          <li>
+            If you want to change configurations,
+            please edit /cms/src/main/resources/org/onehippo/forge/cmisreplication/cmis-replication-scheduler.properties.
+            (Or, edit /cms/WEB-INF/classes/org/onehippo/forge/cmisreplication/cmis-replication-scheduler.properties in a deployed web app.)
+          </li>
+        </ol>
+        <p>
+          <em>Note: cmis.replication.source.rootPath should be properly set to the existing Nuxeo workspace or section path.</em>
+        </p>
+      </subsection>
+      
+      <subsection name="Start CMS and SITE Applications">
+        <ol>
+          <li>
+           Start Tomcat with Cargo Plugin
+           <br/>
+           <pre>
+$ mvn -P cargo.run
+
+(By default, it will open a port at 8888 because the default Nexeo server will open a port at 8080.
+ To change port, you may use `-Dcargo.port=9999', for example.)
+           </pre>
+          </li>
+        </ol>
+      </subsection>
+      
+      <subsection name="Testing">
+        <ol>
+          <li>
+           Visit http://localhost:8888/cms and http://localhost:8888/site
+          </li>
+          <li>
+            Add some binary files (.pdf, .odt, ...) into a workspace of Nuxeo.
+          </li>
+          <li>
+            Check if those added binary files are shown in a Hippo Repository Asset folder.
+          </li>
+          <li>
+            Open a document in CMS and add link(s) to asset(s).
+          </li>
+          <li>
+            Search documents and assets in the SITE application.
+          </li>
+        </ol>
+        <p>
+          As you can see below, you need to add a workspace to add a file.
+          <br/>
+          <img src="images/nuxscreen1.png" alt="Screenshot 1" style="BORDER: lightgrey solid 1px"/>
+        </p>
+        <p>
+          After adding a file in a workspace, you need to publish the file to a section.
+          <br/>
+          <img src="images/nuxscreen2.png" alt="Screenshot 2" style="BORDER: lightgrey solid 1px"/>
+        </p>
+        <p>
+          Now you can see the document you published in your workspace as shown below.
+          <br/>
+          <img src="images/nuxscreen3.png" alt="Screenshot 3" style="BORDER: lightgrey solid 1px"/>
+        </p>
+        <p>
+          After less than 10 seconds, you may see the replicated documents in the specified assets folder
+          from the Nuxeo DM Server to Hippo Repository.
+          <br/>
+          <img src="images/nuxscreen4.png" alt="Screenshot 4" style="BORDER: lightgrey solid 1px"/>
+        </p>
+        <p>
+          Now, you can search the asset documents by the contents in your website.
+          <br/>
+          <img src="images/nuxscreen5.png" alt="Screenshot 5" style="BORDER: lightgrey solid 1px"/>
+        </p>
+      </subsection>
+      
+    </section>
+  </body>
+</document>
