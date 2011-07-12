@@ -84,9 +84,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://forge.onehippo.org/svn/cmisreplication/cmisreplication/tags/cmisreplication-1.01.01</connection>
-    <developerConnection>scm:svn:http://forge.onehippo.org/svn/cmisreplication/cmisreplication/tags/cmisreplication-1.01.01</developerConnection>
-    <url>http://forge.onehippo.org/svn/cmisreplication/cmisreplication/tags/cmisreplication-1.01.01</url>
+    <connection>scm:svn:https://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk</connection>
+    <developerConnection>scm:svn:https://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk</developerConnection>
+    <url>https://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk</url>
   </scm>
 
   <issueManagement>
@@ -102,7 +102,7 @@
     <repository>
       <uniqueVersion>false</uniqueVersion>
       <id>cmisreplication-maven-repo</id>
-      <url>svn:http://forge.onehippo.org/svn/cmisreplication/maven2/</url>
+      <url>svn:https://forge.onehippo.org/svn/cmisreplication/maven2/</url>
     </repository>
   </distributionManagement>
 
@@ -374,7 +374,7 @@
         <artifactId>maven-release-plugin</artifactId>
         <version>${plugin.release.version}</version>
         <configuration>
-          <tagBase>http://forge.onehippo.org/svn/cmisreplication/cmisreplication/tags</tagBase>
+          <tagBase>https://forge.onehippo.org/svn/cmisreplication/cmisreplication/tags</tagBase>
         </configuration>
       </plugin>
       <plugin>
