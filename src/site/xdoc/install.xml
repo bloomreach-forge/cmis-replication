@@ -54,14 +54,14 @@
     <dependency>
       <groupId>org.onehippo.forge.springdaemon</groupId>
       <artifactId>springdaemon</artifactId>
-      <version>1.01.00</version>
+      <version>${forge.springdaemon.version}</version>
     </dependency>
     
     <!-- CMIS Replication Module -->
     <dependency>
       <groupId>org.onehippo.forge.cmisreplication</groupId>
       <artifactId>cmisreplication</artifactId>
-      <version>1.01.00</version>
+      <version>${forge.cmisreplication.version}</version>
     </dependency>
         ]]></source>
         <p>
