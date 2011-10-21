@@ -73,13 +73,13 @@
     <developer>
       <name>Woonsan Ko</name>
       <id>wko</id>
-      <email>w.ko@onehippo.com</email>
+      <email>w.ko @ onehippo . com</email>
       <organization>Hippo</organization>
       <roles>
         <role>Project Lead</role>
         <role>Java Developer</role>
       </roles>
-      <timezone>+1</timezone>
+      <timezone>-5</timezone>
     </developer>
   </developers>
 
