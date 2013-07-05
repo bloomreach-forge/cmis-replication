@@ -1,0 +1,297 @@
+<?xml version="1.0"?><!--
+    Copyright 2011 Hippo Licensed under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under
+    the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+    OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and
+    limitations under the License.
+  --><!DOCTYPE document PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+  <properties>
+    <title>How to use CMIS Replication Module</title>
+  </properties>
+  <body>
+    <section name="How to use CMIS Replication Module">
+      <subsection name="Prerequisites">
+        <p>
+          These instruction assumes that you have maven 2 or 3 based build for your site.
+        </p>
+      </subsection>
+      <subsection name="Maven 2 repository">
+        <p>Add this repository to your root pom.xml:</p>
+        <source><![CDATA[
+    <repository>
+      <id>hippo-maven2-forge</id>
+      <name>Hippo Maven 2 Forge</name>
+      <url>http://maven.onehippo.com/maven2-forge</url>
+    </repository>]]></source>
+      </subsection>
+
+      <subsection name="Specifying the dependency in a CMS/Repository Application project">
+        <p>
+          Add the following dependency in your CMS/Repository Application project.
+          CMIS Replication Module depends on Spring Daemon Module. So, you should add
+          Spring Framework dependencies.
+          One of the simplest ways to include Spring Framework dependency is to use
+          HST-2's Spring Dependency POM dependency as described below.
+        </p>
+        <source><![CDATA[
+    <!-- CMIS Replication requires Spring Daemon Module -->
+    
+    <dependency>
+      <groupId>org.onehippo.cms7.hst.dependencies</groupId>
+      <artifactId>hst-spring-dependencies</artifactId>
+      <type>pom</type>
+      <version>${hippo.hst.version}</version>
+    </dependency>
+    
+    <!-- Spring Daemon Module dependency -->
+    <dependency>
+      <groupId>org.onehippo.forge.springdaemon</groupId>
+      <artifactId>springdaemon</artifactId>
+      <version>${forge.springdaemon.version}</version>
+    </dependency>
+    
+    <!-- CMIS Replication Module -->
+    <dependency>
+      <groupId>org.onehippo.forge.cmisreplication</groupId>
+      <artifactId>cmisreplication</artifactId>
+      <version>${forge.cmisreplication.version}</version>
+    </dependency>
+        ]]></source>
+        <p>
+          With the dependency addtion of CMIS Replication Module,
+          an asset document replicated from CMIS Repository will be of the following type:
+        </p>
+        <source><![CDATA[
+<hippogallery='http://www.onehippo.org/jcr/hippogallery/nt/2.0'>
+<cmisreplication='http://www.onehippo.org/jcr/cmis/cmisreplication/nt/1.0'>
+
+[cmisreplication:exampleAssetSet] > hippogallery:exampleAssetSet
+- cmisreplication:objectId (string)
+- cmisreplication:name (string)
+- cmisreplication:createdBy (string)
+- cmisreplication:creationDate (date)
+- cmisreplication:lastModifiedBy (string)
+- cmisreplication:lastModificationDate (date)
+- cmisreplication:versionLabel (string)
+- * (string) 
+- * (string) multiple
+- * (boolean) 
+- * (boolean) multiple
+- * (long) 
+- * (long) multiple
+- * (double) 
+- * (double) multiple
+- * (date) 
+- * (date) multiple
+        ]]></source>
+        <p>
+          All the new property definitions with 'cmisreplication' prefix are for CMIS Document Metadata.
+          Also, if you want to customize the replicator POJO bean, you may add any other properties easily
+          because it already contains anonymous property definitions.
+        </p>
+      </subsection>
+      
+      <subsection name="Add your POJO beans with Leveraging Spring Framework Components">
+        <p>
+          Add a resource, classpath:org/onehippo/forge/springdaemon/SpringDaemonModule.xml.
+          Normally, you can add a file under /WEB-INF/classes/ to override the configuration.
+        </p>
+        <source><![CDATA[
+<!-- classpath:org/onehippo/forge/springdaemon/SpringDaemonModule.xml -->
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  
+  <!-- Import demo scheduler -->
+  <import resource="classpath:org/onehippo/forge/cmisreplication/cmis-replication-scheduler.xml" />
+  
+</beans>
+        ]]></source>
+        <p>
+          In the configuration above, a separated scheduler configuration, cmis-replication-scheduler.xml,
+          can be added somewhere. You can choose any location. 
+        </p>
+        <source><![CDATA[
+<!-- classpath:org/onehippo/forge/cmisreplication/cmis-replication-scheduler.xml -->
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+  
+  <!-- To use an external properties file, put Spring's built-in PropertyPlaceholderConfigurator here. -->
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <!-- You can use any configuration properties file location -->
+    <property name="location" value="classpath:org/onehippo/forge/cmisreplication/cmis-replication-scheduler.properties" />
+  </bean>
+  
+  <!-- Put Spring Daemon's built-in SessionAware bean which provides JCR session through #getSession() -->
+  <bean id="jcrSessionProvider" class="org.onehippo.forge.springdaemon.SessionProvider" />
+  
+  <!-- The CMIS Documents Replicator POJO Bean -->
+  <bean id="cmisDocumentsReplicator" class="org.onehippo.forge.cmisreplication.CmisDocumentsReplicator">
+    <property name="jcrSession">
+      <bean class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
+        <property name="targetObject" ref="jcrSessionProvider" />
+        <property name="propertyPath" value="session" />
+      </bean>
+    </property>
+    <property name="cmisRepoConfig">
+      <bean class="org.onehippo.forge.cmisreplication.CmisRepoConfig">
+        <property name="url" value="${cmis.replication.source.url}" />
+        <property name="username" value="${cmis.replication.source.username}" />
+        <property name="password" value="${cmis.replication.source.password}" />
+        <property name="repositoryId" value="${cmis.replication.source.repositoryId}" />
+        <property name="rootPath" value="${cmis.replication.source.rootPath}" />
+        <property name="maxItemsPerPage" value="500" />
+        <property name="skipCount" value="0" />
+      </bean>
+    </property>
+    <property name="hippoRepoConfig">
+      <bean class="org.onehippo.forge.cmisreplication.HippoRepoConfig">
+        <property name="rootPath" value="${cmis.replication.target.rootPath}" />
+      </bean>
+    </property>
+    <property name="updateCmisDocumentsToRepository" value="${cmis.replication.updateCmisDocumentsToRepository}" />
+    <property name="updateRepositoryDocumentsToCmis" value="${cmis.replication.updateRepositoryDocumentsToCmis}" />
+  </bean>
+  
+  <!-- Simple Task Scheduler Task configuration which executes the POJO, cmisDocumentsReplicator. -->
+  <task:scheduled-tasks scheduler="cmisDocImportingScheduler">
+    <task:scheduled ref="cmisDocumentsReplicator" method="execute" fixed-delay="${cmis.replication.execution.delay}" />
+  </task:scheduled-tasks>
+  
+  <!-- Simple Java Task Executor scheduler configuration -->
+  <task:scheduler id="cmisDocImportingScheduler" pool-size="1" />
+
+</beans>
+        ]]></source>
+        <p>
+          In the example scheduler configuration above, we added the simple POJO, cmisDocumentsReplicator,
+          which basically replicates/synchronizes from CMIS Repository to Hippo Repository.
+          This bean can be just copied and pasted in your project.
+        </p>
+        <source><![CDATA[
+# classpath:org/onehippo/forge/cmisreplication/cmis-replication-scheduler.properties
+
+# CMIS Replication Scheduler Execution Fixed Delay Time in Milliseconds
+cmis.replication.execution.delay = 10000
+# CMIS Replication Source CMIS URL
+cmis.replication.source.url = http://localhost:8080/nuxeo/atom/cmis
+# CMIS Replication Source CMIS Repository ID
+cmis.replication.source.repositoryId = default
+# CMIS Replication Source CMIS Repository Credentials
+cmis.replication.source.username = Administrator
+cmis.replication.source.password = Administrator
+# CMIS Replication Source CMIS Repository Root Path where documents are replicated from.
+cmis.replication.source.rootPath = /default-domain/sections/marketing
+# CMIS Replication Target Hippo Repository Root Path where documents are replicated to.
+cmis.replication.target.rootPath = /content/assets/marketing
+# Flag whether the replication from source to target is on/off
+cmis.replication.updateCmisDocumentsToRepository = true
+# Flag whether the replication from target to source is on/off; 
+# When turned on, deleting an asset from Hippo Repository triggers deleting the corresponding document in CMIS Repository.
+cmis.replication.updateRepositoryDocumentsToCmis = false
+        ]]></source>
+        <p>
+          To externalize the configuration, we have a separated properties file
+          which is used by the Spring's built-in PropertyPlaceholderConfigurer.
+        </p>
+        <p>
+          For the POJO, cmisDocumentsReplicator, you can configure the following properties as shown above:
+        </p>
+        <table>
+          <tr>
+            <th>Property Path</th>
+            <th>Description</th>
+            <th>Example Value</th>
+            <th>Default Value</th>
+          </tr>
+          <tr>
+            <td>jcrSession</td>
+            <td>
+              The JCR Session used to connect to Hippo Repository.
+              The JCR Session is always given to a bean implementing SessionAware interface by the Spring Daemon Module.
+              In the example configuration above, the built-in SessionProvider bean implements SessionAware, so
+              we just use #getSession() property getter to inject JCR Session.
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmisRepoConfig.url</td>
+            <td>CMIS Repository Server URL</td>
+            <td>http://localhost:8080/nuxeo/atom/cmis</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmisRepoConfig.username</td>
+            <td>The user name for CMIS Repository</td>
+            <td>Administrator</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmisRepoConfig.password</td>
+            <td>The password for CMIS Repository</td>
+            <td>Administrator</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmisRepoConfig.repositoryId</td>
+            <td>The Repository ID of the CMIS Repository</td>
+            <td>default</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmisRepoConfig.rootPath</td>
+            <td>The source CMIS Repository Document Path where documents are replicated from</td>
+            <td>/default-domain/sections/marketing</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmisRepoConfig.maxItemsPerPage</td>
+            <td>The max item count which is configured to Open CMIS Operation Context API</td>
+            <td>500</td>
+            <td>100</td>
+          </tr>
+          <tr>
+            <td>cmisRepoConfig.skipCount</td>
+            <td>The skip count which is configured to Open CMIS Operation Context API</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>hippoRepoConfig.rootPath</td>
+            <td>The target Hippo Repository Asset Documents Path where documents are replicated to</td>
+            <td>/content/assets/marketing</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>updateCmisDocumentsToRepository</td>
+            <td>Flag whether the replication from source to target is on/off</td>
+            <td>true</td>
+            <td>false</td>
+          </tr>
+          <tr>
+            <td>updateRepositoryDocumentsToCmis</td>
+            <td>
+              Flag whether the replication from target to source is on/off; 
+              When turned on, deleting an asset from Hippo Repository triggers deleting the corresponding document in CMIS Repository.
+            </td>
+            <td>false</td>
+            <td>false</td>
+          </tr>
+        </table>
+      </subsection>
+    </section>
+  </body>
+</document>

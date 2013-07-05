@@ -17,6 +17,8 @@ src/site/resources/images/nuxscreen3.png -text
 src/site/resources/images/nuxscreen4.png -text
 src/site/resources/images/nuxscreen5.png -text
 src/site/site.xml -text svneol=unset#text/plain
+src/site/xdoc/1.01.xx/demo-with-nuxeo.xml -text
+src/site/xdoc/1.01.xx/install.xml -text
 src/site/xdoc/build-from-source.xml -text svneol=unset#text/plain
 src/site/xdoc/demo-with-nuxeo.xml -text svneol=unset#text/plain
 src/site/xdoc/index.xml -text svneol=unset#text/plain
