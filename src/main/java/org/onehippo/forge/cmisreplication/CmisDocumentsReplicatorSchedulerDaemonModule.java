@@ -38,21 +38,29 @@ public class CmisDocumentsReplicatorSchedulerDaemonModule extends AbstractReconf
 
     private static Logger log = LoggerFactory.getLogger(CmisDocumentsReplicatorSchedulerDaemonModule.class);
 
+    private static final String JOB_INFO_NAME = CmisReplicatorRepositoryJob.class.getSimpleName() + "Info";
+    private static final String JOB_TRIGGER_NAME = CmisReplicatorRepositoryJob.class.getSimpleName() + "Trigger";
+
+    private static Session defaultSession;
+
     private RepositoryJobInfo cmisReplicatorRepositoryJobInfo;
 
-    private boolean active;
     private String cronExpression;
+
+    static Session getDefaultSession() {
+        return defaultSession;
+    }
 
     @Override
     protected void doConfigure(Node moduleConfig) throws RepositoryException {
         log.debug("Configuring daemon module, '{}'.", CmisDocumentsReplicatorSchedulerDaemonModule.class.getName());
-        active = JcrUtils.getBooleanProperty(moduleConfig, "active", false);
         cronExpression = JcrUtils.getStringProperty(moduleConfig, "cronexpression", null);
     }
 
     @Override
     protected void doInitialize(Session session) throws RepositoryException {
         log.debug("Initializing daemon module, '{}'.", CmisDocumentsReplicatorSchedulerDaemonModule.class.getName());
+        defaultSession = session;
         scheduleJob();
     }
 
@@ -65,16 +73,15 @@ public class CmisDocumentsReplicatorSchedulerDaemonModule extends AbstractReconf
     private void scheduleJob() {
         log.debug("Scheduling a job in daemon module, '{}'.", CmisDocumentsReplicatorSchedulerDaemonModule.class.getName());
 
-        if (!active) {
-            log.debug("The daemon module is not active, so skips scheduling a job.");
-            return;
-        }
-
         try {
             final RepositoryScheduler repositoryScheduler = HippoServiceRegistry.getService(RepositoryScheduler.class);
-            RepositoryJobInfo jobInfo = new RepositoryJobInfo("cmisReplicatorRepositoryJobInfo", CmisReplicatorRepositoryJob.class);
-            final RepositoryJobTrigger helloRepositoryJobTrigger = new RepositoryJobCronTrigger("cmisReplicatorRepositoryJobTrigger", cronExpression);
-            repositoryScheduler.scheduleJob(jobInfo, helloRepositoryJobTrigger);
+
+            RepositoryJobInfo jobInfo = new RepositoryJobInfo(JOB_INFO_NAME, CmisReplicatorRepositoryJob.class);
+            jobInfo.setAttribute(CmisReplicatorRepositoryJob.MODULE_CONFIG_PATH, moduleConfigPath);
+
+            final RepositoryJobTrigger cmisReplicatorRepositoryJobTrigger = new RepositoryJobCronTrigger(JOB_TRIGGER_NAME, cronExpression);
+
+            repositoryScheduler.scheduleJob(jobInfo, cmisReplicatorRepositoryJobTrigger);
             cmisReplicatorRepositoryJobInfo = jobInfo;
             log.info("Scheduled a job: {}", cmisReplicatorRepositoryJobInfo);
         } catch (RepositoryException e) {

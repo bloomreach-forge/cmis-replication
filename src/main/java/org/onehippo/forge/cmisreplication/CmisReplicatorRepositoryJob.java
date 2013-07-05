@@ -15,8 +15,10 @@
  */
 package org.onehippo.forge.cmisreplication;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
+import org.hippoecm.repository.util.JcrUtils;
 import org.onehippo.repository.scheduling.RepositoryJob;
 import org.onehippo.repository.scheduling.RepositoryJobExecutionContext;
 import org.slf4j.Logger;
@@ -29,9 +31,60 @@ public class CmisReplicatorRepositoryJob implements RepositoryJob {
 
     private static Logger log = LoggerFactory.getLogger(CmisReplicatorRepositoryJob.class);
 
+    public static final String MODULE_CONFIG_PATH = "moduleConfigPath";
+    public static final String PARAM_ACTIVE = "active";
+
     @Override
     public void execute(RepositoryJobExecutionContext context) throws RepositoryException {
-        log.debug("Executing '{}'.", CmisReplicatorRepositoryJob.class.getName());
+        log.debug("Beginning '{}#execute()'.", CmisReplicatorRepositoryJob.class.getSimpleName());
+
+        try {
+            String moduleConfigPath = context.getAttribute(MODULE_CONFIG_PATH);
+            Node moduleConfig = CmisDocumentsReplicatorSchedulerDaemonModule.getDefaultSession().getNode(moduleConfigPath);
+            log.debug("moduleConfigNodePat: '{}'.", moduleConfig.getPath());
+            executeReplication(moduleConfig);
+        } catch (Exception e) {
+            log.error("Failed to synchronize CMIS documents with Hippo Repository.", e);
+        }
+
+        log.debug("Ending '{}#execute()'.", CmisReplicatorRepositoryJob.class.getSimpleName());
     }
 
+    private void executeReplication(final Node moduleConfig) throws Exception {
+        CmisDocumentsReplicator replicator = new CmisDocumentsReplicator();
+
+        final CmisRepoConfig cmisRepoConfig = createCmisRepoConfig(moduleConfig);
+        final HippoRepoConfig hippoRepoConfig = createHippoRepoConfig(moduleConfig);
+
+        replicator.setCmisRepoConfig(cmisRepoConfig);
+        replicator.setHippoRepoConfig(hippoRepoConfig);
+        replicator.setJcrSession(CmisDocumentsReplicatorSchedulerDaemonModule.getDefaultSession());
+
+        replicator.setUpdateCmisDocumentsToRepository(JcrUtils.getBooleanProperty(moduleConfig, "cmis.replication.updateCmisDocumentsToRepository", false));
+        replicator.setUpdateRepositoryDocumentsToCmis(JcrUtils.getBooleanProperty(moduleConfig, "cmis.replication.updateRepositoryDocumentsToCmis", false));
+
+        replicator.execute();
+    }
+
+    private CmisRepoConfig createCmisRepoConfig(final Node moduleConfig) throws RepositoryException {
+        CmisRepoConfig config = new CmisRepoConfig();
+
+        config.setUrl(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.url", ""));
+        config.setUsername(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.username", ""));
+        config.setPassword(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.password", ""));
+        config.setRepositoryId(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.repositoryId", ""));
+        config.setRootPath(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.rootPath", ""));
+        config.setMaxItemsPerPage((int) JcrUtils.getLongProperty(moduleConfig, "cmis.replication.source.maxItemsPerPage", 500L));
+        config.setSkipCount((int) JcrUtils.getLongProperty(moduleConfig, "cmis.replication.source.skipCount", 0L));
+
+        return config;
+    }
+
+    private HippoRepoConfig createHippoRepoConfig(Node moduleConfig) throws RepositoryException {
+        HippoRepoConfig config = new HippoRepoConfig();
+
+        config.setRootPath(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.target.rootPath", ""));
+
+        return config;
+    }
 }
