@@ -37,7 +37,7 @@
         <p>
           Check out the trunk source code from the SVN repository:
         </p>
-        <source>svn co http://forge.onehippo.org/svn/springdaemon/trunk springdaemon</source>
+        <source>svn co http://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk cmisreplication</source>
         <p>
           Build the project using Maven:
         </p>
