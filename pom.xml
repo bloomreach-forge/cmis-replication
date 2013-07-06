@@ -34,7 +34,7 @@
     <lib.easymock.version>3.0</lib.easymock.version>
     <lib.slf4j.version>1.6.1</lib.slf4j.version>
     <lib.log4j.version>1.2.16</lib.log4j.version>
-    <lib.chemistry-opencmis.version>0.4.0</lib.chemistry-opencmis.version>
+    <lib.chemistry-opencmis.version>0.9.0</lib.chemistry-opencmis.version>
     <lib.antlr.version>3.1.3</lib.antlr.version>
     <lib.commons-lang.version>2.6</lib.commons-lang.version>
     <lib.commons-io.version>1.4</lib.commons-io.version>
