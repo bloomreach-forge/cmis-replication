@@ -17,6 +17,14 @@
   </properties>
   <body>
     <section name="Release Notes">
+      <subsection name="1.02.00">
+        <ul>
+          <li>Coming soon</li>
+          <li>Upgraded Hippo CMS Dependency to 7.8</li>
+          <li>Used Hippo Repository Scheduler instead of using Spring Framework Scheduler</li>
+          <li>Removed the dependency on Spring Daemon Module</li>
+        </ul>
+      </subsection>
       <subsection name="1.01.01">
         <ul>
           <li>Upgraded Apache Chemistry OpenCMIS to 0.4.0.</li>

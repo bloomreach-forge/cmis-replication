@@ -13,15 +13,15 @@
   "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
   <properties>
-    <title>Demo with Nuxeo DM Server</title>
+    <title>Demo with Nuxeo DM Server 5.6</title>
   </properties>
   <body>
-    <section name="Demo with Nuxeo DM Server">
-      
+    <section name="Demo with Nuxeo DM Server 5.6">
+
       <subsection name="Introduction">
         <p>In this demo, we will use Nuxeo DM Server as a CMIS Repository and show how to integrate it with Hippo Repository.</p>
       </subsection>
-      
+
       <subsection name="Install Nexeo DM Server">
         <ol>
           <li>
@@ -31,19 +31,27 @@
             Uncompress or install the package
           </li>
           <li>
+            Change the default Tomcat port numbers of Nuxeo DM Server by adding the following properties in the bin/nuxeo.conf file:
+            <source><![CDATA[
+nuxeo.server.http.port=18080
+nuxeo.server.tomcat_admin.port=18005
+nuxeo.server.ajp.port=18009
+            ]]></source>
+          </li>
+          <li>
             Start Nuxeo DM Server like the following example:
             <br/>
             <pre>
-$ cd ./nuxeo-dm-5.4.1-tomcat/bin
+$ cd ./nuxeo-cap-5.6-tomcat/bin
 $ ./nuxeoctl console
             </pre>
           </li>
-          <li>You can log on to http://localhost:8080/nuxeo/ with Administrator/Administrator</li>
+          <li>You can log on to http://localhost:18080/nuxeo/ with Administrator/Administrator</li>
           <li>Create a workspace and a section</li>
           <li>Also add some files into workspace and publish those into the section for tests.</li>
         </ol>
       </subsection>
-      
+
       <subsection name="Build CMIS Replication Demo Application">
         <ol>
           <li>
@@ -64,7 +72,7 @@ $ ./nuxeoctl console
           </li>
         </ol>
       </subsection>
-      
+
       <subsection name="Configure CMIS Repository Source and HIPPO Repository Target">
         <ol>
           <li>
@@ -77,7 +85,7 @@ $ ./nuxeoctl console
           <em>Note: cmis.replication.source.rootPath should be properly set to the existing Nuxeo workspace or section path.</em>
         </p>
       </subsection>
-      
+
       <subsection name="Start CMS and SITE Applications">
         <ol>
           <li>
@@ -85,18 +93,15 @@ $ ./nuxeoctl console
            <br/>
            <pre>
 $ mvn -P cargo.run
-
-(By default, it will open a port at 8888 because the default Nexeo server will open a port at 8080.
- To change port, you may use `-Dcargo.port=9999', for example.)
            </pre>
           </li>
         </ol>
       </subsection>
-      
+
       <subsection name="Testing">
         <ol>
           <li>
-           Visit http://localhost:8888/cms and http://localhost:8888/site
+           Visit http://localhost:8080/cms and http://localhost:8080/site
           </li>
           <li>
             Add some binary files (.pdf, .odt, ...) into a workspace of Nuxeo.
@@ -138,7 +143,7 @@ $ mvn -P cargo.run
           <img src="images/nuxscreen5.png" alt="Screenshot 5" style="BORDER: lightgrey solid 1px"/>
         </p>
       </subsection>
-      
+
     </section>
   </body>
 </document>

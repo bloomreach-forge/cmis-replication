@@ -19,7 +19,7 @@
     <section name="How to use CMIS Replication Module">
       <subsection name="Prerequisites">
         <p>
-          These instruction assumes that you have maven 2 or 3 based build for your site.
+          These instruction assumes that you have maven 3 based build for your site.
         </p>
       </subsection>
       <subsection name="Maven 2 repository">
@@ -41,22 +41,6 @@
           HST-2's Spring Dependency POM dependency as described below.
         </p>
         <source><![CDATA[
-    <!-- CMIS Replication requires Spring Daemon Module -->
-    
-    <dependency>
-      <groupId>org.onehippo.cms7.hst.dependencies</groupId>
-      <artifactId>hst-spring-dependencies</artifactId>
-      <type>pom</type>
-      <version>${hippo.hst.version}</version>
-    </dependency>
-    
-    <!-- Spring Daemon Module dependency -->
-    <dependency>
-      <groupId>org.onehippo.forge.springdaemon</groupId>
-      <artifactId>springdaemon</artifactId>
-      <version>${forge.springdaemon.version}</version>
-    </dependency>
-    
     <!-- CMIS Replication Module -->
     <dependency>
       <groupId>org.onehippo.forge.cmisreplication</groupId>
@@ -80,15 +64,15 @@
 - cmisreplication:lastModifiedBy (string)
 - cmisreplication:lastModificationDate (date)
 - cmisreplication:versionLabel (string)
-- * (string) 
+- * (string)
 - * (string) multiple
-- * (boolean) 
+- * (boolean)
 - * (boolean) multiple
-- * (long) 
+- * (long)
 - * (long) multiple
-- * (double) 
+- * (double)
 - * (double) multiple
-- * (date) 
+- * (date)
 - * (date) multiple
         ]]></source>
         <p>
@@ -97,89 +81,9 @@
           because it already contains anonymous property definitions.
         </p>
       </subsection>
-      
+
       <subsection name="Add your POJO beans with Leveraging Spring Framework Components">
-        <p>
-          Add a resource, classpath:org/onehippo/forge/springdaemon/SpringDaemonModule.xml.
-          Normally, you can add a file under /WEB-INF/classes/ to override the configuration.
-        </p>
-        <source><![CDATA[
-<!-- classpath:org/onehippo/forge/springdaemon/SpringDaemonModule.xml -->
-
-<beans xmlns="http://www.springframework.org/schema/beans" 
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-  
-  <!-- Import demo scheduler -->
-  <import resource="classpath:org/onehippo/forge/cmisreplication/cmis-replication-scheduler.xml" />
-  
-</beans>
-        ]]></source>
-        <p>
-          In the configuration above, a separated scheduler configuration, cmis-replication-scheduler.xml,
-          can be added somewhere. You can choose any location. 
-        </p>
-        <source><![CDATA[
-<!-- classpath:org/onehippo/forge/cmisreplication/cmis-replication-scheduler.xml -->
-
-<beans xmlns="http://www.springframework.org/schema/beans" 
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:task="http://www.springframework.org/schema/task"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
-  
-  <!-- To use an external properties file, put Spring's built-in PropertyPlaceholderConfigurator here. -->
-  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <!-- You can use any configuration properties file location -->
-    <property name="location" value="classpath:org/onehippo/forge/cmisreplication/cmis-replication-scheduler.properties" />
-  </bean>
-  
-  <!-- Put Spring Daemon's built-in SessionAware bean which provides JCR session through #getSession() -->
-  <bean id="jcrSessionProvider" class="org.onehippo.forge.springdaemon.SessionProvider" />
-  
-  <!-- The CMIS Documents Replicator POJO Bean -->
-  <bean id="cmisDocumentsReplicator" class="org.onehippo.forge.cmisreplication.CmisDocumentsReplicator">
-    <property name="jcrSession">
-      <bean class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
-        <property name="targetObject" ref="jcrSessionProvider" />
-        <property name="propertyPath" value="session" />
-      </bean>
-    </property>
-    <property name="cmisRepoConfig">
-      <bean class="org.onehippo.forge.cmisreplication.CmisRepoConfig">
-        <property name="url" value="${cmis.replication.source.url}" />
-        <property name="username" value="${cmis.replication.source.username}" />
-        <property name="password" value="${cmis.replication.source.password}" />
-        <property name="repositoryId" value="${cmis.replication.source.repositoryId}" />
-        <property name="rootPath" value="${cmis.replication.source.rootPath}" />
-        <property name="maxItemsPerPage" value="500" />
-        <property name="skipCount" value="0" />
-      </bean>
-    </property>
-    <property name="hippoRepoConfig">
-      <bean class="org.onehippo.forge.cmisreplication.HippoRepoConfig">
-        <property name="rootPath" value="${cmis.replication.target.rootPath}" />
-      </bean>
-    </property>
-    <property name="updateCmisDocumentsToRepository" value="${cmis.replication.updateCmisDocumentsToRepository}" />
-    <property name="updateRepositoryDocumentsToCmis" value="${cmis.replication.updateRepositoryDocumentsToCmis}" />
-  </bean>
-  
-  <!-- Simple Task Scheduler Task configuration which executes the POJO, cmisDocumentsReplicator. -->
-  <task:scheduled-tasks scheduler="cmisDocImportingScheduler">
-    <task:scheduled ref="cmisDocumentsReplicator" method="execute" fixed-delay="${cmis.replication.execution.delay}" />
-  </task:scheduled-tasks>
-  
-  <!-- Simple Java Task Executor scheduler configuration -->
-  <task:scheduler id="cmisDocImportingScheduler" pool-size="1" />
-
-</beans>
-        ]]></source>
-        <p>
-          In the example scheduler configuration above, we added the simple POJO, cmisDocumentsReplicator,
-          which basically replicates/synchronizes from CMIS Repository to Hippo Repository.
-          This bean can be just copied and pasted in your project.
-        </p>
+        <p>TODO</p>
         <source><![CDATA[
 # classpath:org/onehippo/forge/cmisreplication/cmis-replication-scheduler.properties
 
@@ -198,7 +102,7 @@ cmis.replication.source.rootPath = /default-domain/sections/marketing
 cmis.replication.target.rootPath = /content/assets/marketing
 # Flag whether the replication from source to target is on/off
 cmis.replication.updateCmisDocumentsToRepository = true
-# Flag whether the replication from target to source is on/off; 
+# Flag whether the replication from target to source is on/off;
 # When turned on, deleting an asset from Hippo Repository triggers deleting the corresponding document in CMIS Repository.
 cmis.replication.updateRepositoryDocumentsToCmis = false
         ]]></source>
@@ -284,7 +188,7 @@ cmis.replication.updateRepositoryDocumentsToCmis = false
           <tr>
             <td>updateRepositoryDocumentsToCmis</td>
             <td>
-              Flag whether the replication from target to source is on/off; 
+              Flag whether the replication from target to source is on/off;
               When turned on, deleting an asset from Hippo Repository triggers deleting the corresponding document in CMIS Repository.
             </td>
             <td>false</td>
