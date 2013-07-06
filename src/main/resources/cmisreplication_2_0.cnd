@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hippo
+ * Copyright 2011-2013 Hippo
  *
  * Licensed under the Apache License, Version 2.0 (the  "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 <rep='internal'>
 <jcr='http://www.jcp.org/jcr/1.0'>
 <nt='http://www.jcp.org/jcr/nt/1.0'>
 <mix='http://www.jcp.org/jcr/mix/1.0'>
 <hippo='http://www.onehippo.org/jcr/hippo/nt/2.0'>
 <hippostd='http://www.onehippo.org/jcr/hippostd/nt/2.0'>
-<hippogallery='http://www.onehippo.org/jcr/hippogallery/nt/2.0'>
-<cmisreplication='http://www.onehippo.org/jcr/cmis/cmisreplication/nt/1.0'>
+<cmisreplication='http://www.onehippo.org/jcr/cmis/cmisreplication/nt/2.0'>
 
-[cmisreplication:exampleAssetSet] > hippogallery:exampleAssetSet
+[cmisreplication:cmisdocument] mixin
 - cmisreplication:objectId (string)
 - cmisreplication:name (string)
 - cmisreplication:createdBy (string)
@@ -31,13 +30,3 @@
 - cmisreplication:lastModifiedBy (string)
 - cmisreplication:lastModificationDate (date)
 - cmisreplication:versionLabel (string)
-- * (string) 
-- * (string) multiple
-- * (boolean) 
-- * (boolean) multiple
-- * (long) 
-- * (long) multiple
-- * (double) 
-- * (double) multiple
-- * (date) 
-- * (date) multiple

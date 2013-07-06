@@ -26,10 +26,10 @@
       <sv:value>9990</sv:value>
     </sv:property>
     <sv:property sv:name="hippo:namespace" sv:type="String">
-      <sv:value>http://www.onehippo.org/jcr/cmis/cmisreplication/nt/1.0</sv:value>
+      <sv:value>http://www.onehippo.org/jcr/cmis/cmisreplication/nt/2.0</sv:value>
     </sv:property>
     <sv:property sv:name="hippo:nodetypesresource" sv:type="String">
-      <sv:value>cmisreplication.cnd</sv:value>
+      <sv:value>cmisreplication_2_0.cnd</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="cmisreplication-namespace">

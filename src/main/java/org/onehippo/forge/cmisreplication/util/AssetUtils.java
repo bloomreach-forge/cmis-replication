@@ -90,9 +90,18 @@ public class AssetUtils {
 
         if (assetHandleNode.hasNode(name)) {
             assetNode = assetHandleNode.getNode(name);
+
+            if (assetNode.isNodeType(CmisReplicationTypes.HIPPO_HARD_DOCUMENT)) {
+                assetNode.addMixin(CmisReplicationTypes.HIPPO_HARD_DOCUMENT);
+            }
+
+            if (assetNode.isNodeType(CmisReplicationTypes.CMIS_DOCUMENT_TYPE)) {
+                assetNode.addMixin(CmisReplicationTypes.CMIS_DOCUMENT_TYPE);
+            }
         } else {
-            assetNode = assetHandleNode.addNode(name, CmisReplicationTypes.EXAMPLE_ASSET_SET);
+            assetNode = assetHandleNode.addNode(name, CmisReplicationTypes.HIPPO_EXAMPLE_ASSET_SET);
             assetNode.addMixin(CmisReplicationTypes.HIPPO_HARD_DOCUMENT);
+            assetNode.addMixin(CmisReplicationTypes.CMIS_DOCUMENT_TYPE);
         }
 
         assetNode.setProperty(CmisReplicationTypes.CMIS_OBJECT_ID, document.getId());
@@ -151,7 +160,7 @@ public class AssetUtils {
 
         Node folderNode = parentFolderNode.addNode(folderName, CmisReplicationTypes.HIPPO_ASSET_GALLERY);
         folderNode.addMixin(CmisReplicationTypes.HIPPO_HARD_DOCUMENT);
-        folderNode.setProperty(CmisReplicationTypes.HIPPOSTD_GALLERY_TYPE, new String [] { CmisReplicationTypes.EXAMPLE_ASSET_SET, CmisReplicationTypes.HIPPO_EXAMPLE_ASSET_SET });
+        folderNode.setProperty(CmisReplicationTypes.HIPPOSTD_GALLERY_TYPE, new String [] { CmisReplicationTypes.HIPPO_EXAMPLE_ASSET_SET });
         folderNode.setProperty(CmisReplicationTypes.HIPPOSTD_FOLDER_TYPE, new String [] { "new-file-folder" });
 
         session.save();

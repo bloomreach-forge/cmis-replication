@@ -130,7 +130,7 @@ public class CmisDocumentsReplicator {
             }
 
             List<String> documentIds = new LinkedList<String>();
-            fillAllDocumentIdsFromCMIS(seed, documentIds);
+            fillAllDocumentIdsFromCMISRepository(seed, documentIds);
 
             for (String documentId : documentIds) {
                 Document document = null;
@@ -186,7 +186,7 @@ public class CmisDocumentsReplicator {
 
             if (seed != null) {
                 List<String> documentIds = new LinkedList<String>();
-                fillAllDocumentIdsFromRepository(seed, documentIds);
+                fillAllDocumentIdsFromHippoRepository(seed, documentIds);
 
                 for (String documentId : documentIds) {
                     Document document = null;
@@ -231,7 +231,7 @@ public class CmisDocumentsReplicator {
         return session;
     }
 
-    private void fillAllDocumentIdsFromCMIS(CmisObject seed, List<String> documentIds) {
+    private void fillAllDocumentIdsFromCMISRepository(CmisObject seed, List<String> documentIds) {
         String baseType = seed.getBaseType().getId();
 
         if (ObjectType.DOCUMENT_BASETYPE_ID.equals(baseType)) {
@@ -241,25 +241,25 @@ public class CmisDocumentsReplicator {
 
             if (children.getTotalNumItems() > 0) {
                 for (CmisObject item : children) {
-                    fillAllDocumentIdsFromCMIS(item, documentIds);
+                    fillAllDocumentIdsFromCMISRepository(item, documentIds);
                 }
             }
         }
     }
 
-    private void fillAllDocumentIdsFromRepository(Node seed, List<String> documentIds) throws RepositoryException {
+    private void fillAllDocumentIdsFromHippoRepository(Node seed, List<String> documentIds) throws RepositoryException {
         if (seed.isNodeType(CmisReplicationTypes.HIPPO_HANDLE)) {
             seed = seed.getNode(seed.getName());
         }
 
-        if (seed.isNodeType(CmisReplicationTypes.EXAMPLE_ASSET_SET) && seed.hasProperty(CmisReplicationTypes.CMIS_OBJECT_ID)) {
+        if (seed.isNodeType(CmisReplicationTypes.CMIS_DOCUMENT_TYPE) && seed.hasProperty(CmisReplicationTypes.CMIS_OBJECT_ID)) {
             documentIds.add(seed.getProperty(CmisReplicationTypes.CMIS_OBJECT_ID).getString());
         } else if (seed.isNodeType(CmisReplicationTypes.HIPPO_ASSET_GALLERY)) {
             for (NodeIterator nodeIt = seed.getNodes(); nodeIt.hasNext(); ) {
                 Node child = nodeIt.nextNode();
 
                 if (child != null) {
-                    fillAllDocumentIdsFromRepository(child, documentIds);
+                    fillAllDocumentIdsFromHippoRepository(child, documentIds);
                 }
             }
         }
@@ -267,7 +267,7 @@ public class CmisDocumentsReplicator {
 
     private void removeAssetByDocumentId(javax.jcr.Session jcrSession, String documentId) throws RepositoryException {
         QueryManager queryManager = jcrSession.getWorkspace().getQueryManager();
-        String statement = "//element(*," + CmisReplicationTypes.EXAMPLE_ASSET_SET + ")[@" + CmisReplicationTypes.CMIS_OBJECT_ID +"='" + documentId + "']";
+        String statement = "//element(*," + CmisReplicationTypes.CMIS_DOCUMENT_TYPE + ")[@" + CmisReplicationTypes.CMIS_OBJECT_ID +"='" + documentId + "']";
         Query query = queryManager.createQuery(statement, Query.XPATH);
         QueryResult result = query.execute();
         boolean removed = false;

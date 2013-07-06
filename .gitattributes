@@ -9,7 +9,7 @@ src/main/java/org/onehippo/forge/cmisreplication/HippoRepoConfig.java -text svne
 src/main/java/org/onehippo/forge/cmisreplication/util/AssetMetadata.java -text svneol=unset#text/plain
 src/main/java/org/onehippo/forge/cmisreplication/util/AssetUtils.java -text svneol=unset#text/plain
 src/main/java/org/onehippo/forge/cmisreplication/util/CmisDocumentBinary.java -text svneol=unset#text/plain
-src/main/resources/cmisreplication.cnd -text
+src/main/resources/cmisreplication_2_0.cnd -text
 src/main/resources/configuration/modules/cmisreplication-scheduler-default.xml -text
 src/main/resources/hippoecm-extension.xml -text svneol=unset#text/plain
 src/main/resources/namespaces/cmisreplication.xml -text svneol=unset#text/plain
