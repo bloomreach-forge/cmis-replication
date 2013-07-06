@@ -144,7 +144,6 @@ public class CmisDocumentsReplicator {
                     continue;
                 }
 
-                //log.debug("Processing document: " + document.getPaths());
                 String assetPath =
                     hippoRepoConfig.getRootPath() + "/" +
                     StringUtils.removeStart(StringUtils.removeStart(document.getPaths().get(0), cmisRepoConfig.getRootPath()), "/");
