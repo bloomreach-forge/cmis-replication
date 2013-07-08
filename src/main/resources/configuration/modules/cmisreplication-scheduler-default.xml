@@ -11,7 +11,7 @@
       <sv:value>nt:unstructured</sv:value>
     </sv:property>
     <sv:property sv:name="cronexpression" sv:type="String">
-      <sv:value>* * * * * ?</sv:value>
+      <sv:value>0/10 * * * * * ?</sv:value>
     </sv:property>
     <sv:property sv:name="cmis.replication.migrateCMISDocumentsToHippo" sv:type="Boolean">
       <sv:value>true</sv:value>
