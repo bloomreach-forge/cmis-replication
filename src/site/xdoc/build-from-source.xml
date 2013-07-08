@@ -23,10 +23,10 @@
       <subsection name="Requirements">
         <ul>
           <li>
-            <p>Java 5 JDK</p>
+            <p>Java 1.6 JDK</p>
           </li>
           <li>
-            <p>Maven 2 or 3</p>
+            <p>Maven 3</p>
           </li>
           <li>
             <p>Subversion client</p>
@@ -43,7 +43,7 @@
         </p>
         <source>mvn install</source>
         <p>
-          Build all the reports and the site (requires Maven 2 or 3):
+          Build all the reports and the site (requires Maven 3):
         </p>
         <source>mvn site</source>
       </subsection>

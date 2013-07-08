@@ -60,8 +60,8 @@ public class CmisReplicatorRepositoryJob implements RepositoryJob {
         replicator.setHippoRepoConfig(hippoRepoConfig);
         replicator.setJcrSession(CmisDocumentsReplicatorSchedulerDaemonModule.getDefaultSession());
 
-        replicator.setUpdateCmisDocumentsToRepository(JcrUtils.getBooleanProperty(moduleConfig, "cmis.replication.updateCmisDocumentsToRepository", false));
-        replicator.setUpdateRepositoryDocumentsToCmis(JcrUtils.getBooleanProperty(moduleConfig, "cmis.replication.updateRepositoryDocumentsToCmis", false));
+        replicator.setMigrateCMISDocumentsToHippo(JcrUtils.getBooleanProperty(moduleConfig, "cmis.replication.migrateCMISDocumentsToHippo", true));
+        replicator.setDeleteHippoDocumentsWhenCMISDocumentsRemoved(JcrUtils.getBooleanProperty(moduleConfig, "cmis.replication.deleteHippoDocumentsWhenCMISDocumentsRemoved", true));
 
         replicator.execute();
     }
@@ -75,7 +75,6 @@ public class CmisReplicatorRepositoryJob implements RepositoryJob {
         config.setRepositoryId(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.repositoryId", ""));
         config.setRootPath(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.rootPath", ""));
         config.setMaxItemsPerPage((int) JcrUtils.getLongProperty(moduleConfig, "cmis.replication.source.maxItemsPerPage", 500L));
-        config.setSkipCount((int) JcrUtils.getLongProperty(moduleConfig, "cmis.replication.source.skipCount", 0L));
 
         return config;
     }

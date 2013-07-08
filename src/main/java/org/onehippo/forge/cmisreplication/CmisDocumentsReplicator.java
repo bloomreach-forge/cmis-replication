@@ -54,8 +54,8 @@ public class CmisDocumentsReplicator {
     private javax.jcr.Session jcrSession;
     private CmisRepoConfig cmisRepoConfig;
     private HippoRepoConfig hippoRepoConfig;
-    private boolean updateCmisDocumentsToRepository;
-    private boolean updateRepositoryDocumentsToCmis;
+    private boolean migrateCMISDocumentsToHippo;
+    private boolean deleteHippoDocumentsWhenCMISDocumentsRemoved;
 
     public void setJcrSession(javax.jcr.Session jcrSession) {
         this.jcrSession = jcrSession;
@@ -77,26 +77,26 @@ public class CmisDocumentsReplicator {
         this.hippoRepoConfig = hippoRepoConfig;
     }
 
-    public boolean isUpdateCmisDocumentsToRepository() {
-        return updateCmisDocumentsToRepository;
+    public boolean isMigrateCMISDocumentsToHippo() {
+        return migrateCMISDocumentsToHippo;
     }
 
-    public void setUpdateCmisDocumentsToRepository(boolean updateCmisDocumentsToRepository) {
-        this.updateCmisDocumentsToRepository = updateCmisDocumentsToRepository;
+    public void setMigrateCMISDocumentsToHippo(boolean migrateCMISDocumentsToHippo) {
+        this.migrateCMISDocumentsToHippo = migrateCMISDocumentsToHippo;
     }
 
-    public boolean isUpdateRepositoryDocumentsToCmis() {
-        return updateRepositoryDocumentsToCmis;
+    public boolean isDeleteHippoDocumentsWhenCMISDocumentsRemoved() {
+        return deleteHippoDocumentsWhenCMISDocumentsRemoved;
     }
 
-    public void setUpdateRepositoryDocumentsToCmis(boolean updateRepositoryDocumentsToCmis) {
-        this.updateRepositoryDocumentsToCmis = updateRepositoryDocumentsToCmis;
+    public void setDeleteHippoDocumentsWhenCMISDocumentsRemoved(boolean deleteHippoDocumentsWhenCMISDocumentsRemoved) {
+        this.deleteHippoDocumentsWhenCMISDocumentsRemoved = deleteHippoDocumentsWhenCMISDocumentsRemoved;
     }
 
     public void execute() {
         log.debug("Executing Cmis Documents Replicator ...");
 
-        if (updateCmisDocumentsToRepository) {
+        if (migrateCMISDocumentsToHippo) {
             try {
                 updateCmisDocumentsToHippoRepository();
             } catch (Exception e) {
@@ -104,9 +104,9 @@ public class CmisDocumentsReplicator {
             }
         }
 
-        if (updateRepositoryDocumentsToCmis) {
+        if (deleteHippoDocumentsWhenCMISDocumentsRemoved) {
             try {
-                updateHippoRepositoryDocumentsToCmis();
+                deleteAssetsNotHavingCorrespondingCMISDocuments();
             } catch (Exception e) {
                 log.warn("Failed to update Repository Documents To CMIS Repository: " + e, e);
             }
@@ -170,7 +170,7 @@ public class CmisDocumentsReplicator {
         }
     }
 
-    private void updateHippoRepositoryDocumentsToCmis() throws RepositoryException, IOException {
+    private void deleteAssetsNotHavingCorrespondingCMISDocuments() throws RepositoryException, IOException {
         Session session = null;
 
         try {
@@ -190,6 +190,9 @@ public class CmisDocumentsReplicator {
 
                 for (String documentId : documentIds) {
                     Document document = null;
+
+                    // If a CMIS document is not found by the document ID stored in a Hippo asset node,
+                    // then remove Hippo asset node because it is supposed to be removed from the source CMIS repository.
 
                     try {
                         document = (Document) session.getObject(documentId);

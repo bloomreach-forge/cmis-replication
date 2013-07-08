@@ -19,6 +19,12 @@ src/site/resources/images/1.01.xx/nuxscreen2.png -text
 src/site/resources/images/1.01.xx/nuxscreen3.png -text
 src/site/resources/images/1.01.xx/nuxscreen4.png -text
 src/site/resources/images/1.01.xx/nuxscreen5.png -text
+src/site/resources/images/cmisreplication-config.png -text
+src/site/resources/images/nuxscreen1.png -text
+src/site/resources/images/nuxscreen2.png -text
+src/site/resources/images/nuxscreen3.png -text
+src/site/resources/images/nuxscreen4.png -text
+src/site/resources/images/nuxscreen5.png -text
 src/site/site.xml -text svneol=unset#text/plain
 src/site/xdoc/1.01.xx/demo-with-nuxeo-5.4.xml -text
 src/site/xdoc/1.01.xx/index.xml -text

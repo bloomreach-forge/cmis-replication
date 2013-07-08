@@ -19,18 +19,23 @@
     <section name="Introduction">
       <subsection name="What is CMIS Replication Module?">
         <p>
-          CMIS Replication Module provides a replication module from CMIS repository to Hippo Repsitory.
+          CMIS Replication Module provides replication of documents from CMIS repository to Hippo Repsitory.
           CMIS Replication Module reads documents from a dedicated (normally published) CMIS folder
-          and upload the documents to a specified assets folder in Hippo Repository with CMIS metadata
-          (
-              cmisreplication:objectId,
-              cmisreplication:name,
-              cmisreplication:createdBy,
-              cmisreplication:creationDate,
-              cmisreplication:lastModifiedBy,
-              cmisreplication:lastModificationDate, etc.
-          ).
+          and upload the documents to a specified assets folder in Hippo Repository with CMIS metadata.
         </p>
+        <p>
+          So, each asset document imported from CMIS repository has the following mixin type:
+        </p>
+        <source><![CDATA[
+[cmisreplication:cmisdocument] mixin
+- cmisreplication:objectId (string)
+- cmisreplication:name (string)
+- cmisreplication:createdBy (string)
+- cmisreplication:creationDate (date)
+- cmisreplication:lastModifiedBy (string)
+- cmisreplication:lastModificationDate (date)
+- cmisreplication:versionLabel (string)
+        ]]></source>
         <p>
           Based on the metadata, CMIS Replication Module also synchronizes documents between CMIS Repository
           and Hippo Repository.

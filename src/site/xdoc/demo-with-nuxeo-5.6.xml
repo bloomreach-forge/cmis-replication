@@ -28,10 +28,12 @@
             Download Nuxeo Document Management Server at <a href="http://www.nuxeo.com/" target="_blank">http://www.nuxeo.com/</a>.
           </li>
           <li>
-            Uncompress or install the package
+            Uncompress or install the package (e.g, ./nuxeo-cap-5.6-tomcat/).
           </li>
           <li>
             Change the default Tomcat port numbers of Nuxeo DM Server by adding the following properties in the bin/nuxeo.conf file:
+            <br/>
+            (This will be more convenient when you are running Hippo CMS on the same machine because Hippo CMS also uses 80** port numbers by default.)
             <source><![CDATA[
 nuxeo.server.http.port=18080
 nuxeo.server.tomcat_admin.port=18005
@@ -39,16 +41,18 @@ nuxeo.server.ajp.port=18009
             ]]></source>
           </li>
           <li>
-            Start Nuxeo DM Server like the following example:
+            Start Nuxeo DM Server like the following example in a command line console:
             <br/>
-            <pre>
+            <source><![CDATA[
 $ cd ./nuxeo-cap-5.6-tomcat/bin
 $ ./nuxeoctl console
-            </pre>
+            ]]></source>
           </li>
-          <li>You can log on to http://localhost:18080/nuxeo/ with Administrator/Administrator</li>
-          <li>Create a workspace and a section</li>
-          <li>Also add some files into workspace and publish those into the section for tests.</li>
+          <li>
+            You can log on to http://localhost:18080/nuxeo/ with Administrator/Administrator.
+            <br/>
+            (If you meet the initial setup screen, then just choose the defaults and clicks 'Next' buttons.)
+          </li>
         </ol>
       </subsection>
 
@@ -77,8 +81,8 @@ $ ./nuxeoctl console
         <ol>
           <li>
             If you want to change configurations,
-            please edit /cms/src/main/resources/org/onehippo/forge/cmisreplication/cmis-replication-scheduler.properties.
-            (Or, edit /cms/WEB-INF/classes/org/onehippo/forge/cmisreplication/cmis-replication-scheduler.properties in a deployed web app.)
+            please navigate to '/hippo:configuration/hippo:modules/cmisreplication-scheduler-module/hippo:moduleconfig'
+            in CMS Console and edit properties. See <a href="install.html">Installation</a> page for detail.
           </li>
         </ol>
         <p>
@@ -91,23 +95,20 @@ $ ./nuxeoctl console
           <li>
            Start Tomcat with Cargo Plugin
            <br/>
-           <pre>
+            <source><![CDATA[
 $ mvn -P cargo.run
-           </pre>
+            ]]></source>
           </li>
         </ol>
       </subsection>
 
       <subsection name="Testing">
         <ol>
+          <li>Create a workspace with any name. (e.g, 'testws') in Nuxeo DM Server</li>
+          <li>Create a section named 'marketing'.</li>
+          <li>Add some documents with file attachments into workspace and publish those into the 'marketing' section.</li>
           <li>
-           Visit http://localhost:8080/cms and http://localhost:8080/site
-          </li>
-          <li>
-            Add some binary files (.pdf, .odt, ...) into a workspace of Nuxeo.
-          </li>
-          <li>
-            Check if those added binary files are shown in a Hippo Repository Asset folder.
+            Check if those added binary files are shown in a Hippo Repository Asset folder within about 1 minute.
           </li>
           <li>
             Open a document in CMS and add link(s) to asset(s).
@@ -132,7 +133,7 @@ $ mvn -P cargo.run
           <img src="images/nuxscreen3.png" alt="Screenshot 3" style="BORDER: lightgrey solid 1px"/>
         </p>
         <p>
-          After less than 10 seconds, you may see the replicated documents in the specified assets folder
+          After about 1 minute, you may see the replicated documents in the specified assets folder
           from the Nuxeo DM Server to Hippo Repository.
           <br/>
           <img src="images/nuxscreen4.png" alt="Screenshot 4" style="BORDER: lightgrey solid 1px"/>
@@ -142,6 +143,12 @@ $ mvn -P cargo.run
           <br/>
           <img src="images/nuxscreen5.png" alt="Screenshot 5" style="BORDER: lightgrey solid 1px"/>
         </p>
+      </subsection>
+
+      <subsection name="References">
+        <ul>
+          <li><a href="http://doc.nuxeo.com/display/NXDOC/CMIS+for+Nuxeo">CMIS for Nuxeo</a></li>
+        </ul>
       </subsection>
 
     </section>

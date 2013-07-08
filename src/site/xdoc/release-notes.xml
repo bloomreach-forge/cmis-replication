@@ -21,8 +21,7 @@
         <ul>
           <li>Coming soon</li>
           <li>Upgraded Hippo CMS Dependency to 7.8</li>
-          <li>Used Hippo Repository Scheduler instead of using Spring Framework Scheduler</li>
-          <li>Removed the dependency on Spring Daemon Module</li>
+          <li>Used Hippo Repository Scheduler instead of using Spring Framework Scheduler (The dependency on Spring Daemon Module has been removed.)</li>
         </ul>
       </subsection>
       <subsection name="1.01.01">

@@ -13,11 +13,11 @@
     <sv:property sv:name="cronexpression" sv:type="String">
       <sv:value>* * * * * ?</sv:value>
     </sv:property>
-    <sv:property sv:name="cmis.replication.updateCmisDocumentsToRepository" sv:type="Boolean">
+    <sv:property sv:name="cmis.replication.migrateCMISDocumentsToHippo" sv:type="Boolean">
       <sv:value>true</sv:value>
     </sv:property>
-    <sv:property sv:name="cmis.replication.updateRepositoryDocumentsToCmis" sv:type="Boolean">
-      <sv:value>false</sv:value>
+    <sv:property sv:name="cmis.replication.deleteHippoDocumentsWhenCMISDocumentsRemoved" sv:type="Boolean">
+      <sv:value>true</sv:value>
     </sv:property>
     <sv:property sv:name="cmis.replication.target.rootPath" sv:type="String">
       <sv:value>/content/assets/marketing</sv:value>
@@ -39,9 +39,6 @@
     </sv:property>
     <sv:property sv:name="cmis.replication.source.maxItemsPerPage" sv:type="Long">
       <sv:value>500</sv:value>
-    </sv:property>
-    <sv:property sv:name="cmis.replication.source.skipCount" sv:type="Long">
-      <sv:value>0</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>
