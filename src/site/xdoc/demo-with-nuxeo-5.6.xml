@@ -143,6 +143,17 @@ $ mvn -P cargo.run
           <br/>
           <img src="images/nuxscreen5.png" alt="Screenshot 5" style="BORDER: lightgrey solid 1px"/>
         </p>
+        <p>
+          <em>NOTE: </em>
+          By default, the search component searches only non-asset documents. Also, its default template JSP page
+          cannot deal with asset document beans.
+          Therefore, the demo project contains custom component implementation and template JSP page to allow to search asset documents as well.
+          See the following code for detail:
+        </p>
+        <ul>
+          <li>http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk/site/src/main/java/org/onehippo/forge/cmisreplication/demo/components/Search.java</li>
+          <li>http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk/site/src/main/webapp/WEB-INF/jsp/search/main/content.jsp</li>
+        </ul>
       </subsection>
 
       <subsection name="References">
