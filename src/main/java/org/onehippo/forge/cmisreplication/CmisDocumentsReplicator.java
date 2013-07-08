@@ -94,7 +94,7 @@ public class CmisDocumentsReplicator {
     }
 
     public void execute() {
-        log.debug("Executing Cmis Documents Replicator ...");
+        log.info("Starting Cmis Documents Replicator Execution ...");
 
         if (migrateCMISDocumentsToHippo) {
             try {
@@ -111,6 +111,8 @@ public class CmisDocumentsReplicator {
                 log.warn("Failed to update Repository Documents To CMIS Repository: " + e, e);
             }
         }
+
+        log.info("Stopping Cmis Documents Replicator Execution ...");
     }
 
     private void updateCmisDocumentsToHippoRepository() throws RepositoryException, IOException {
