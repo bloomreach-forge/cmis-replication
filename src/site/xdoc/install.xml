@@ -92,7 +92,7 @@
               See <a href="http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger" target="_new">Quartz CronTrigger Tutorial</a>
               for detail on CRON expressions.
             </td>
-            <td>* * * * * ?</td>
+            <td>0/10 * * * * ?</td>
             <td></td>
           </tr>
           <tr>
