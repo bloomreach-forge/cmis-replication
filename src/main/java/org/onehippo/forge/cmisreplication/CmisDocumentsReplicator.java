@@ -157,7 +157,7 @@ public class CmisDocumentsReplicator {
                     Node assetFolderNode = AssetUtils.createAssetFolders(jcrSession, assetFolderPath);
                     CmisDocumentBinary binary = new CmisDocumentBinary(document);
                     AssetUtils.updateAsset(jcrSession, assetFolderNode, assetName, document, binary);
-                    log.debug("Updated asset on {}", assetPath);
+                    log.info("Updated asset on {}", assetPath);
                 }
             }
         } finally {
@@ -202,7 +202,7 @@ public class CmisDocumentsReplicator {
                     if (document == null) {
                         try {
                             removeAssetByDocumentId(jcrSession, documentId);
-                            log.debug("Removed asset node corresponding to " + documentId);
+                            log.info("Removed asset node corresponding to " + documentId);
                         } catch (RepositoryException re) {
                             log.warn("Failed to remove node corresponding to " + documentId);
                         }
