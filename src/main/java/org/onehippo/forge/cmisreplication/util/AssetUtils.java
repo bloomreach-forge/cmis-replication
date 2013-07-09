@@ -121,7 +121,7 @@ public class AssetUtils {
         }
 
         resourceChildNode.setProperty("jcr:mimeType", document.getContentStreamMimeType());
-        resourceChildNode.setProperty("jcr:data", session.getValueFactory().createBinary(binaryData.getStream()));
+        resourceChildNode.setProperty("jcr:data", binaryData);
         resourceChildNode.setProperty("jcr:lastModified", System.currentTimeMillis());
 
         session.save();

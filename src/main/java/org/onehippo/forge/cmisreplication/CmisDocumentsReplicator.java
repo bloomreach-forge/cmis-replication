@@ -159,6 +159,7 @@ public class CmisDocumentsReplicator {
                     Node assetFolderNode = AssetUtils.createAssetFolders(jcrSession, assetFolderPath);
                     CmisDocumentBinary binary = new CmisDocumentBinary(document);
                     AssetUtils.updateAsset(jcrSession, assetFolderNode, assetName, document, binary);
+                    binary.dispose();
                     log.info("Updated asset on {}", assetPath);
                 }
             }
