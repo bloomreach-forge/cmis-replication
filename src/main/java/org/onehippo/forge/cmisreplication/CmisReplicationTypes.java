@@ -22,8 +22,11 @@ public interface CmisReplicationTypes {
     public static final String HIPPO_HARD_DOCUMENT = "hippo:harddocument";
     public static final String HIPPO_TRANSLATED = "hippo:translated";
     public static final String HIPPO_RESOURCE = "hippo:resource";
+    public static final String HIPPO_AVAILABILITY = "hippo:availability";
+
 
     public static final String HIPPOGALLERY_ASSET = "hippogallery:asset";
+
 
     public static final String HIPPO_ASSET_GALLERY = "hippogallery:stdAssetGallery";
     public static final String HIPPO_EXAMPLE_ASSET_SET = "hippogallery:exampleAssetSet";
@@ -48,5 +51,4 @@ public interface CmisReplicationTypes {
     public static final String CMIS_LAST_MODIFIED_BY = "cmisreplication:lastModifiedBy";
     public static final String CMIS_LAST_MODIFICATION_DATE = "cmisreplication:lastModificationDate";
     public static final String CMIS_VERSION_LABEL = "cmisreplication:versionLabel";
-
 }

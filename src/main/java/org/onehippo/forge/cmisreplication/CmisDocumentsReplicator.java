@@ -123,7 +123,7 @@ public class CmisDocumentsReplicator {
             OperationContext operationContext = session.createOperationContext();
             operationContext.setMaxItemsPerPage(cmisRepoConfig.getMaxItemsPerPage());
 
-            CmisObject seed = null;
+            CmisObject seed;
 
             if (StringUtils.isBlank(cmisRepoConfig.getRootPath())) {
                 seed = session.getRootFolder(operationContext);
@@ -158,7 +158,9 @@ public class CmisDocumentsReplicator {
                     String assetName = assetPath.substring(offset + 1);
                     Node assetFolderNode = AssetUtils.createAssetFolders(jcrSession, assetFolderPath);
                     CmisDocumentBinary binary = new CmisDocumentBinary(document);
-                    AssetUtils.updateAsset(jcrSession, assetFolderNode, assetName, document, binary);
+                    AssetUtils.updateAsset(jcrSession, assetFolderNode, assetName, document, binary,
+                            cmisRepoConfig.getMetadataIdsToSync());
+
                     binary.dispose();
                     log.info("Updated asset on {}", assetPath);
                 }
@@ -232,9 +234,8 @@ public class CmisDocumentsReplicator {
         sessionParams.put(SessionParameter.REPOSITORY_ID, cmisRepoConfig.getRepositoryId());
 
         SessionFactory factory = SessionFactoryImpl.newInstance();
-        Session session = factory.createSession(sessionParams);
 
-        return session;
+        return factory.createSession(sessionParams);
     }
 
     private void fillAllDocumentIdsFromCMISRepository(CmisObject seed, List<String> documentIds) {
@@ -255,7 +256,9 @@ public class CmisDocumentsReplicator {
 
     private void fillAllDocumentIdsFromHippoRepository(Node seed, List<String> documentIds) throws RepositoryException {
         if (seed.isNodeType(CmisReplicationTypes.HIPPO_HANDLE)) {
-            seed = seed.getNode(seed.getName());
+            if (seed.hasNode(seed.getName())) {
+                seed = seed.getNode(seed.getName());
+            }
         }
 
         if (seed.isNodeType(CmisReplicationTypes.CMIS_DOCUMENT_TYPE) && seed.hasProperty(CmisReplicationTypes.CMIS_OBJECT_ID)) {

@@ -30,3 +30,4 @@
 - cmisreplication:lastModifiedBy (string)
 - cmisreplication:lastModificationDate (date)
 - cmisreplication:versionLabel (string)
+- * (string) multiple

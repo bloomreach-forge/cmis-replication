@@ -177,6 +177,15 @@
             <td>500</td>
             <td>500</td>
           </tr>
+          <tr>
+            <td>cmis.replication.include.metadata.ids</td>
+            <td>String[]</td>
+            <td>
+              List of properties that will be synchronized with the replicated document.
+            </td>
+            <td>dc:description dc:subjects</td>
+            <td></td>
+          </tr>
         </table>
       </subsection>
     </section>

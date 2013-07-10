@@ -15,6 +15,9 @@
  */
 package org.onehippo.forge.cmisreplication;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CmisRepoConfig {
 
     private String url;
@@ -22,6 +25,7 @@ public class CmisRepoConfig {
     private String password;
     private String repositoryId;
     private String rootPath;
+    private List<String> metadataIdsToSync = new ArrayList<String>();
 
     private int maxItemsPerPage = 100;
 
@@ -70,5 +74,13 @@ public class CmisRepoConfig {
 
     public void setMaxItemsPerPage(int maxItemsPerPage) {
         this.maxItemsPerPage = maxItemsPerPage;
+    }
+
+    public List<String> getMetadataIdsToSync() {
+        return metadataIdsToSync;
+    }
+
+    public void addMetadataIdToSync(final String metadataId) {
+        this.metadataIdsToSync.add(metadataId);
     }
 }

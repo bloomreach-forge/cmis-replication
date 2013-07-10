@@ -40,5 +40,8 @@
     <sv:property sv:name="cmis.replication.source.maxItemsPerPage" sv:type="Long">
       <sv:value>500</sv:value>
     </sv:property>
+    <sv:property sv:name="cmis.replication.include.metadata.ids" sv:type="String" sv:multiple="true">
+      <sv:value/>
+    </sv:property>
   </sv:node>
 </sv:node>

@@ -16,7 +16,9 @@
 package org.onehippo.forge.cmisreplication;
 
 import javax.jcr.Node;
+import javax.jcr.Property;
 import javax.jcr.RepositoryException;
+import javax.jcr.Value;
 
 import org.hippoecm.repository.util.JcrUtils;
 import org.onehippo.repository.scheduling.RepositoryJob;
@@ -75,6 +77,20 @@ public class CmisReplicatorRepositoryJob implements RepositoryJob {
         config.setRepositoryId(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.repositoryId", ""));
         config.setRootPath(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.rootPath", ""));
         config.setMaxItemsPerPage((int) JcrUtils.getLongProperty(moduleConfig, "cmis.replication.source.maxItemsPerPage", 500L));
+
+
+        // Get the list of metadata ids to synchronize
+        Property metadataIdsProperty = JcrUtils.getPropertyIfExists(moduleConfig, "cmis.replication.include.metadata.ids");
+
+        if (metadataIdsProperty != null) {
+
+            Value[] values = metadataIdsProperty.getValues();
+
+            for (Value value : values) {
+                config.addMetadataIdToSync(value.getString());
+            }
+        }
+
 
         return config;
     }

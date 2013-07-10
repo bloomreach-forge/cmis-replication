@@ -16,6 +16,8 @@
 package org.onehippo.forge.cmisreplication.util;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Properties;
 
 import javax.jcr.Binary;
 import javax.jcr.Node;
@@ -23,6 +25,7 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import org.apache.chemistry.opencmis.client.api.Document;
+import org.apache.chemistry.opencmis.client.api.Property;
 import org.apache.commons.lang.StringUtils;
 import org.onehippo.forge.cmisreplication.CmisReplicationTypes;
 
@@ -43,7 +46,11 @@ public class AssetUtils {
         Node node = session.getRootNode().getNode(StringUtils.removeStart(path, "/"));
 
         if (node.isNodeType(CmisReplicationTypes.HIPPO_HANDLE)) {
-            node = node.getNode(node.getName());
+            if (node.hasNode(node.getName())) {
+                node = node.getNode(node.getName());
+            } else {
+                return null;
+            }
         }
 
         Node resourceChildNode = null;
@@ -68,7 +75,7 @@ public class AssetUtils {
         return metadata;
     }
 
-    public static void updateAsset(Session session, Node folderNode, String name, Document document, Binary binaryData) throws RepositoryException, IOException {
+    public static void updateAsset(Session session, Node folderNode, String name, Document document, Binary binaryData, final List<String> metadataIdsToSync) throws RepositoryException, IOException {
         Node assetHandleNode = null;
 
         if (folderNode.hasNode(name)) {
@@ -84,9 +91,10 @@ public class AssetUtils {
             assetHandleNode = folderNode.addNode(name, CmisReplicationTypes.HIPPO_HANDLE);
             assetHandleNode.addMixin(CmisReplicationTypes.HIPPO_HARD_HANDLE);
             assetHandleNode.addMixin(CmisReplicationTypes.HIPPO_TRANSLATED);
+
         }
 
-        Node assetNode = null;
+        Node assetNode;
 
         if (assetHandleNode.hasNode(name)) {
             assetNode = assetHandleNode.getNode(name);
@@ -102,6 +110,7 @@ public class AssetUtils {
             assetNode = assetHandleNode.addNode(name, CmisReplicationTypes.HIPPO_EXAMPLE_ASSET_SET);
             assetNode.addMixin(CmisReplicationTypes.HIPPO_HARD_DOCUMENT);
             assetNode.addMixin(CmisReplicationTypes.CMIS_DOCUMENT_TYPE);
+            assetNode.setProperty(CmisReplicationTypes.HIPPO_AVAILABILITY, new String[]{"live", "preview"});
         }
 
         assetNode.setProperty(CmisReplicationTypes.CMIS_OBJECT_ID, document.getId());
@@ -112,7 +121,21 @@ public class AssetUtils {
         assetNode.setProperty(CmisReplicationTypes.CMIS_LAST_MODIFICATION_DATE, document.getLastModificationDate());
         assetNode.setProperty(CmisReplicationTypes.CMIS_VERSION_LABEL, document.getVersionLabel());
 
-        Node resourceChildNode = null;
+        // Insert the metadata
+        List<Property<?>> propertiesList = document.getProperties();
+
+        for (Property<?> property : propertiesList) {
+
+            if (metadataIdsToSync.contains(property.getId()) && property.getValues() != null) {
+
+                List metadataValues = property.getValues();
+
+                String[] values = (String[]) metadataValues.toArray(new String[metadataValues.size()]);
+                assetNode.setProperty(StringUtils.substringAfter(property.getId(), ":"), values);
+            }
+        }
+
+        Node resourceChildNode;
 
         if (!assetNode.hasNode(CmisReplicationTypes.HIPPOGALLERY_ASSET)) {
             resourceChildNode = assetNode.addNode(CmisReplicationTypes.HIPPOGALLERY_ASSET, CmisReplicationTypes.HIPPO_RESOURCE);
