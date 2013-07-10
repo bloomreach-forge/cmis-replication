@@ -35,6 +35,7 @@
 - cmisreplication:lastModifiedBy (string)
 - cmisreplication:lastModificationDate (date)
 - cmisreplication:versionLabel (string)
+- * (string) multiple
         ]]></source>
         <p>
           Based on the metadata, CMIS Replication Module also synchronizes documents between CMIS Repository

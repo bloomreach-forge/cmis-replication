@@ -1,4 +1,7 @@
 /.classpath
+/.idea
 /.project
 /.settings
+/atlassian-ide-plugin.xml
+/cmisreplication.iml
 /target
