@@ -41,9 +41,12 @@ import org.apache.chemistry.opencmis.commons.SessionParameter;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.apache.commons.lang.StringUtils;
+import org.hippoecm.repository.api.StringCodec;
+import org.hippoecm.repository.api.StringCodecFactory;
 import org.onehippo.forge.cmisreplication.util.AssetMetadata;
 import org.onehippo.forge.cmisreplication.util.AssetUtils;
 import org.onehippo.forge.cmisreplication.util.CmisDocumentBinary;
+import org.onehippo.forge.cmisreplication.util.Codecs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -146,19 +149,31 @@ public class CmisDocumentsReplicator {
                     continue;
                 }
 
-                String assetPath =
-                    hippoRepoConfig.getRootPath() + "/" +
-                    StringUtils.removeStart(StringUtils.removeStart(document.getPaths().get(0), cmisRepoConfig.getRootPath()), "/");
+                String remoteDocument = StringUtils.removeStart(StringUtils.substringBeforeLast(document.getPaths().get(0), "/"), cmisRepoConfig.getRootPath());
+
+                // Remove the first start
+                remoteDocument = StringUtils.removeStart(remoteDocument, "/");
+
+                // Encode the name of the document
+                String encodedAssetName = Codecs.encodeNode(document.getName());
+
+                String assetFolderPath = hippoRepoConfig.getRootPath();
+                String assetPath;
+
+                // No folder
+                if (StringUtils.isEmpty(remoteDocument)) {
+                    assetPath = assetFolderPath + "/" + encodedAssetName;
+                } else {
+                    assetPath = assetFolderPath + "/" + remoteDocument + "/" + encodedAssetName;
+                }
+
                 AssetMetadata metadata = AssetUtils.getAssetMetadata(jcrSession, assetPath);
                 long documentLastModified = document.getLastModificationDate().getTimeInMillis();
 
                 if (metadata == null || documentLastModified > metadata.getLastModified()) {
-                    int offset = assetPath.lastIndexOf("/");
-                    String assetFolderPath = assetPath.substring(0, offset);
-                    String assetName = assetPath.substring(offset + 1);
                     Node assetFolderNode = AssetUtils.createAssetFolders(jcrSession, assetFolderPath);
                     CmisDocumentBinary binary = new CmisDocumentBinary(document);
-                    AssetUtils.updateAsset(jcrSession, assetFolderNode, assetName, document, binary,
+                    AssetUtils.updateAsset(jcrSession, assetFolderNode, encodedAssetName, document, binary,
                             cmisRepoConfig.getMetadataIdsToSync());
 
                     binary.dispose();

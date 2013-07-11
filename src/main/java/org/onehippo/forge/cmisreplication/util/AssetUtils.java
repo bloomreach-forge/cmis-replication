@@ -17,7 +17,6 @@ package org.onehippo.forge.cmisreplication.util;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
 
 import javax.jcr.Binary;
 import javax.jcr.Node;
@@ -75,11 +74,11 @@ public class AssetUtils {
         return metadata;
     }
 
-    public static void updateAsset(Session session, Node folderNode, String name, Document document, Binary binaryData, final List<String> metadataIdsToSync) throws RepositoryException, IOException {
+    public static void updateAsset(Session session, Node folderNode, String encodedAssetName, Document document, Binary binaryData, final List<String> metadataIdsToSync) throws RepositoryException, IOException {
         Node assetHandleNode = null;
 
-        if (folderNode.hasNode(name)) {
-            assetHandleNode = folderNode.getNode(name);
+        if (folderNode.hasNode(encodedAssetName)) {
+            assetHandleNode = folderNode.getNode(encodedAssetName);
 
             if (!assetHandleNode.isNodeType(CmisReplicationTypes.HIPPO_HANDLE) || !assetHandleNode.isNodeType(CmisReplicationTypes.HIPPO_HARD_HANDLE)) {
                 assetHandleNode.remove();
@@ -88,16 +87,20 @@ public class AssetUtils {
         }
 
         if (assetHandleNode == null) {
-            assetHandleNode = folderNode.addNode(name, CmisReplicationTypes.HIPPO_HANDLE);
+            assetHandleNode = folderNode.addNode(encodedAssetName, CmisReplicationTypes.HIPPO_HANDLE);
             assetHandleNode.addMixin(CmisReplicationTypes.HIPPO_HARD_HANDLE);
             assetHandleNode.addMixin(CmisReplicationTypes.HIPPO_TRANSLATED);
 
+            // Add translation node. This node is used to manager special name
+            Node translation = assetHandleNode.addNode(CmisReplicationTypes.HIPPO_TRANSLATION, CmisReplicationTypes.HIPPO_TRANSLATION);
+            translation.setProperty(CmisReplicationTypes.HIPPO_LANGUAGE, "");
+            translation.setProperty(CmisReplicationTypes.HIPPO_MESSAGE, document.getName());
         }
 
         Node assetNode;
 
-        if (assetHandleNode.hasNode(name)) {
-            assetNode = assetHandleNode.getNode(name);
+        if (assetHandleNode.hasNode(encodedAssetName)) {
+            assetNode = assetHandleNode.getNode(encodedAssetName);
 
             if (assetNode.isNodeType(CmisReplicationTypes.HIPPO_HARD_DOCUMENT)) {
                 assetNode.addMixin(CmisReplicationTypes.HIPPO_HARD_DOCUMENT);
@@ -107,7 +110,7 @@ public class AssetUtils {
                 assetNode.addMixin(CmisReplicationTypes.CMIS_DOCUMENT_TYPE);
             }
         } else {
-            assetNode = assetHandleNode.addNode(name, CmisReplicationTypes.HIPPO_EXAMPLE_ASSET_SET);
+            assetNode = assetHandleNode.addNode(encodedAssetName, CmisReplicationTypes.HIPPO_EXAMPLE_ASSET_SET);
             assetNode.addMixin(CmisReplicationTypes.HIPPO_HARD_DOCUMENT);
             assetNode.addMixin(CmisReplicationTypes.CMIS_DOCUMENT_TYPE);
             assetNode.setProperty(CmisReplicationTypes.HIPPO_AVAILABILITY, new String[]{"live", "preview"});

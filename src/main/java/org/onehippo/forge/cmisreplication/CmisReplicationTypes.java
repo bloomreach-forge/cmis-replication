@@ -21,6 +21,7 @@ public interface CmisReplicationTypes {
     public static final String HIPPO_HARD_HANDLE = "hippo:hardhandle";
     public static final String HIPPO_HARD_DOCUMENT = "hippo:harddocument";
     public static final String HIPPO_TRANSLATED = "hippo:translated";
+    public static final String HIPPO_TRANSLATION = "hippo:translation";
     public static final String HIPPO_RESOURCE = "hippo:resource";
     public static final String HIPPO_AVAILABILITY = "hippo:availability";
 
@@ -51,4 +52,6 @@ public interface CmisReplicationTypes {
     public static final String CMIS_LAST_MODIFIED_BY = "cmisreplication:lastModifiedBy";
     public static final String CMIS_LAST_MODIFICATION_DATE = "cmisreplication:lastModificationDate";
     public static final String CMIS_VERSION_LABEL = "cmisreplication:versionLabel";
+    String HIPPO_LANGUAGE = "hippo:language";
+    String HIPPO_MESSAGE = "hippo:message";
 }
