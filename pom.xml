@@ -85,9 +85,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:https://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk</connection>
-    <developerConnection>scm:svn:https://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk</developerConnection>
-    <url>https://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk</url>
+    <connection>scm:svn:https://forge.onehippo.org/svn/cmisreplication/cmisreplication/branches/cmisreplication-1.02.xx</connection>
+    <developerConnection>scm:svn:https://forge.onehippo.org/svn/cmisreplication/cmisreplication/branches/cmisreplication-1.02.xx</developerConnection>
+    <url>https://forge.onehippo.org/svn/cmisreplication/cmisreplication/branches/cmisreplication-1.02.xx</url>
   </scm>
 
   <issueManagement>
