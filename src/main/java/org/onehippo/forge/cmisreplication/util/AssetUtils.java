@@ -88,7 +88,7 @@ public class AssetUtils {
 
         if (assetHandleNode == null) {
             assetHandleNode = folderNode.addNode(encodedAssetName, CmisReplicationTypes.HIPPO_HANDLE);
-            assetHandleNode.addMixin(CmisReplicationTypes.HIPPO_HARD_HANDLE);
+            assetHandleNode.addMixin(CmisReplicationTypes.MIX_REFERENCEABLE);
             assetHandleNode.addMixin(CmisReplicationTypes.HIPPO_TRANSLATED);
 
             // Add translation node. This node is used to manager special name
@@ -102,16 +102,11 @@ public class AssetUtils {
         if (assetHandleNode.hasNode(encodedAssetName)) {
             assetNode = assetHandleNode.getNode(encodedAssetName);
 
-            if (assetNode.isNodeType(CmisReplicationTypes.HIPPO_HARD_DOCUMENT)) {
-                assetNode.addMixin(CmisReplicationTypes.HIPPO_HARD_DOCUMENT);
-            }
-
             if (assetNode.isNodeType(CmisReplicationTypes.CMIS_DOCUMENT_TYPE)) {
                 assetNode.addMixin(CmisReplicationTypes.CMIS_DOCUMENT_TYPE);
             }
         } else {
             assetNode = assetHandleNode.addNode(encodedAssetName, CmisReplicationTypes.HIPPO_EXAMPLE_ASSET_SET);
-            assetNode.addMixin(CmisReplicationTypes.HIPPO_HARD_DOCUMENT);
             assetNode.addMixin(CmisReplicationTypes.CMIS_DOCUMENT_TYPE);
             assetNode.setProperty(CmisReplicationTypes.HIPPO_AVAILABILITY, new String[]{"live", "preview"});
         }
@@ -185,7 +180,7 @@ public class AssetUtils {
         }
 
         Node folderNode = parentFolderNode.addNode(folderName, CmisReplicationTypes.HIPPO_ASSET_GALLERY);
-        folderNode.addMixin(CmisReplicationTypes.HIPPO_HARD_DOCUMENT);
+        folderNode.addMixin(CmisReplicationTypes.MIX_REFERENCEABLE);
         folderNode.setProperty(CmisReplicationTypes.HIPPOSTD_GALLERY_TYPE, new String [] { CmisReplicationTypes.HIPPO_EXAMPLE_ASSET_SET });
         folderNode.setProperty(CmisReplicationTypes.HIPPOSTD_FOLDER_TYPE, new String [] { "new-file-folder" });
 

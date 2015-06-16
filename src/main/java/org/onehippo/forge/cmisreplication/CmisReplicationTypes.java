@@ -25,6 +25,8 @@ public interface CmisReplicationTypes {
     public static final String HIPPO_RESOURCE = "hippo:resource";
     public static final String HIPPO_AVAILABILITY = "hippo:availability";
 
+    public static final String MIX_REFERENCEABLE = "mix:referenceable";
+
 
     public static final String HIPPOGALLERY_ASSET = "hippogallery:asset";
 

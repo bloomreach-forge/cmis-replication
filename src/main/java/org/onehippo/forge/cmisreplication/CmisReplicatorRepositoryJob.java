@@ -76,7 +76,7 @@ public class CmisReplicatorRepositoryJob implements RepositoryJob {
         config.setPassword(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.password", ""));
         config.setRepositoryId(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.repositoryId", ""));
         config.setRootPath(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.source.rootPath", ""));
-        config.setMaxItemsPerPage((int) JcrUtils.getLongProperty(moduleConfig, "cmis.replication.source.maxItemsPerPage", 500L));
+        config.setMaxItemsPerPage(safeLongToInt(JcrUtils.getLongProperty(moduleConfig, "cmis.replication.source.maxItemsPerPage", 500L)));
 
 
         // Get the list of metadata ids to synchronize
@@ -101,5 +101,13 @@ public class CmisReplicatorRepositoryJob implements RepositoryJob {
         config.setRootPath(JcrUtils.getStringProperty(moduleConfig, "cmis.replication.target.rootPath", ""));
 
         return config;
+    }
+
+    public static int safeLongToInt(long l) {
+        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException
+                    (l + " cannot be cast to int without changing its value.");
+        }
+        return (int) l;
     }
 }
