@@ -30,7 +30,6 @@ import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ItemIterable;
-import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.apache.chemistry.opencmis.client.api.OperationContext;
 import org.apache.chemistry.opencmis.client.api.Property;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
@@ -38,6 +37,7 @@ import org.apache.chemistry.opencmis.client.api.Session;
 import org.apache.chemistry.opencmis.client.api.SessionFactory;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
 import org.apache.chemistry.opencmis.commons.SessionParameter;
+import org.apache.chemistry.opencmis.commons.enums.BaseTypeId;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
 import org.apache.chemistry.opencmis.commons.enums.PropertyType;
 import org.apache.commons.io.IOUtils;
@@ -50,12 +50,12 @@ import org.junit.Test;
 // then this test will work.
 @Ignore
 public class CmisTest {
-    
+
     private Session session;
     private int maxItemsPerPage = 100;
     private int skipCount = 0;
     private OperationContext operationContext;
-    
+
     @Before
     public void setUp() throws Exception {
         Map<String, String> sessionParams = new HashMap<String, String>();
@@ -64,25 +64,25 @@ public class CmisTest {
         sessionParams.put(SessionParameter.ATOMPUB_URL, "http://localhost:8080/nuxeo/atom/cmis");
         sessionParams.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
         sessionParams.put(SessionParameter.REPOSITORY_ID, "default");
-        
+
         SessionFactory factory = SessionFactoryImpl.newInstance();
         session = factory.createSession(sessionParams);
         operationContext = session.createOperationContext();
         operationContext.setMaxItemsPerPage(maxItemsPerPage);
     }
-    
+
     @Test
     public void testListFolders() throws Exception {
         printFolder(session.getRootFolder(operationContext), operationContext, 0);
     }
-    
+
     @Test
     public void testReadContents() throws Exception {
         List<CmisObject> childItems = new ArrayList<CmisObject>();
         fillAllChildItems(session.getRootFolder(), childItems);
-        
+
         for (CmisObject item : childItems) {
-            if (ObjectType.DOCUMENT_BASETYPE_ID.equals(item.getBaseType().getId())) {
+            if (BaseTypeId.CMIS_DOCUMENT.equals(item.getBaseType().getId())) {
                 Document doc = (Document) item;
                 printDocument(doc);
                 File file = new File("target/" + doc.getName());
@@ -91,12 +91,12 @@ public class CmisTest {
             }
         }
     }
-    
+
     @Test
     public void testReadContentsByPath() throws Exception {
         printFolder((Folder) session.getObjectByPath("/Default domain/Workspaces", operationContext), operationContext, 0);
     }
-    
+
     @Test
     public void testQuery() throws Exception {
         System.out.println("$$$$$ testQuery...");
@@ -112,35 +112,35 @@ public class CmisTest {
             printDocument(doc);
         }
     }
-    
+
     private void printFolder(Folder folder, OperationContext operationContext, int level) {
         for (int i = 0; i < level; i++) {
             System.out.print("  ");
         }
         System.out.println("+ " + folder.getName() + " (" + folder.getBaseType().getId() + ") {" + folder.getId() + "}");
-        
+
         ItemIterable<CmisObject> children = folder.getChildren(operationContext);
-        
+
         if (children.getTotalNumItems() > 0) {
             for (CmisObject item : children.skipTo(skipCount).getPage()) {
-                if (ObjectType.FOLDER_BASETYPE_ID.equals(item.getBaseType().getId())) {
+                if (BaseTypeId.CMIS_FOLDER.equals(item.getBaseType().getId())) {
                     printFolder((Folder) item, operationContext, level + 1);
                 } else {
                     for (int i = 0; i < level + 1; i++) {
                         System.out.print("  ");
                     }
-                    System.out.println("- " + item.getName() + " (" + item.getBaseType().getId() + ") {" + item.getId() + "}");                    
+                    System.out.println("- " + item.getName() + " (" + item.getBaseType().getId() + ") {" + item.getId() + "}");
                 }
             }
         }
     }
-    
+
     private void fillAllChildItems(CmisObject seed, List<CmisObject> childItems) {
         childItems.add(seed);
-        
-        if (ObjectType.FOLDER_BASETYPE_ID.equals(seed.getBaseType().getId())) {
+
+        if (BaseTypeId.CMIS_FOLDER.equals(seed.getBaseType().getId())) {
             ItemIterable<CmisObject> children = ((Folder) seed).getChildren();
-            
+
             if (children.getTotalNumItems() > 0) {
                 for (CmisObject item : children) {
                     fillAllChildItems(item, childItems);
@@ -148,10 +148,10 @@ public class CmisTest {
             }
         }
     }
-    
+
     private void printDocument(Document document) {
         System.out.println("[Document: " + document.getName() + "]");
-        
+
         for (Property<?> p : document.getProperties()) {
             if (PropertyType.DATETIME == p.getType()) {
                 Calendar calValue = (Calendar) p.getValue();
@@ -161,11 +161,11 @@ public class CmisTest {
             }
         }
     }
-    
+
     private void saveDocument(Document document, File file) throws IOException {
         InputStream input = null;
         OutputStream output = null;
-        
+
         try {
             input = document.getContentStream().getStream();
             output = new FileOutputStream(file);

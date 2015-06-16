@@ -32,17 +32,15 @@ import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ItemIterable;
-import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.apache.chemistry.opencmis.client.api.OperationContext;
 import org.apache.chemistry.opencmis.client.api.Session;
 import org.apache.chemistry.opencmis.client.api.SessionFactory;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
 import org.apache.chemistry.opencmis.commons.SessionParameter;
+import org.apache.chemistry.opencmis.commons.enums.BaseTypeId;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.apache.commons.lang.StringUtils;
-import org.hippoecm.repository.api.StringCodec;
-import org.hippoecm.repository.api.StringCodecFactory;
 import org.onehippo.forge.cmisreplication.util.AssetMetadata;
 import org.onehippo.forge.cmisreplication.util.AssetUtils;
 import org.onehippo.forge.cmisreplication.util.CmisDocumentBinary;
@@ -256,9 +254,9 @@ public class CmisDocumentsReplicator {
     private void fillAllDocumentIdsFromCMISRepository(CmisObject seed, List<String> documentIds) {
         String baseType = seed.getBaseType().getId();
 
-        if (ObjectType.DOCUMENT_BASETYPE_ID.equals(baseType)) {
+        if (BaseTypeId.CMIS_DOCUMENT.equals(baseType)) {
             documentIds.add(seed.getId());
-        } else if (ObjectType.FOLDER_BASETYPE_ID.equals(baseType)) {
+        } else if (BaseTypeId.CMIS_FOLDER.equals(baseType)) {
             ItemIterable<CmisObject> children = ((Folder) seed).getChildren();
 
             if (children.getTotalNumItems() > 0) {
@@ -291,7 +289,7 @@ public class CmisDocumentsReplicator {
 
     private void removeAssetByDocumentId(javax.jcr.Session jcrSession, String documentId) throws RepositoryException {
         QueryManager queryManager = jcrSession.getWorkspace().getQueryManager();
-        String statement = "//element(*," + CmisReplicationTypes.CMIS_DOCUMENT_TYPE + ")[@" + CmisReplicationTypes.CMIS_OBJECT_ID +"='" + documentId + "']";
+        String statement = "//element(*," + CmisReplicationTypes.CMIS_DOCUMENT_TYPE + ")[@" + CmisReplicationTypes.CMIS_OBJECT_ID + "='" + documentId + "']";
         Query query = queryManager.createQuery(statement, Query.XPATH);
         QueryResult result = query.execute();
         boolean removed = false;
