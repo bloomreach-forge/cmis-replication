@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+    Copyright 2010 Hippo Licensed under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under
+    the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+    OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and
+    limitations under the License.
+  --><!DOCTYPE document PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+  <properties>
+    <title>Demo with Nuxeo DM Server 6.0</title>
+  </properties>
+  <body>
+    <section name="Demo with Nuxeo DM Server 6.0">
+
+      <subsection name="Introduction">
+        <p>In this demo, we will use Nuxeo DM Server as a CMIS Repository and show how to integrate it with Hippo Repository.</p>
+      </subsection>
+
+      <subsection name="Install Nuxeo DM Server">
+        <ol>
+          <li>
+            Download Nuxeo Document Management Server at <a href="http://www.nuxeo.com/" target="_blank">http://www.nuxeo.com/</a>.
+          </li>
+          <li>
+            Uncompress or install the package (e.g, ./nuxeo-cap-6.0-tomcat/).
+          </li>
+          <li>
+            Change the default Tomcat port numbers of Nuxeo DM Server by adding the following properties in the bin/nuxeo.conf file:
+            <br/>
+            (This will be more convenient when you are running Hippo CMS on the same machine because Hippo CMS also uses 80** port numbers by default.)
+            <source><![CDATA[
+nuxeo.url=http://localhost:18080/nuxeo
+nuxeo.server.http.port=18080
+nuxeo.server.tomcat_admin.port=18005
+nuxeo.server.ajp.port=18009
+            ]]></source>
+          </li>
+          <li>
+            Start Nuxeo DM Server like the following example in a command line console:
+            <br/>
+            <source><![CDATA[
+$ cd ./nuxeo-cap-6.0-tomcat/bin
+$ ./nuxeoctl console
+            ]]></source>
+          </li>
+          <li>
+            You can log on to http://localhost:18080/nuxeo/ with Administrator/Administrator.
+            <br/>
+            (If you meet the initial setup screen, then just choose the defaults and clicks 'Next' buttons.)
+          </li>
+        </ol>
+      </subsection>
+
+      <subsection name="Build CMIS Replication Demo Application">
+        <ol>
+          <li>
+            Check out http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk. For example,
+            <br/>
+            <pre>$ svn checkout http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk cmisreplication-demo</pre>
+          </li>
+          <li>
+            Build with `mvn clean verify'
+          </li>
+        </ol>
+      </subsection>
+
+      <subsection name="Configure CMIS Repository Source and HIPPO Repository Target">
+        <ol>
+          <li>
+            If you want to change configurations,
+            please navigate to '/hippo:configuration/hippo:modules/cmisreplication-scheduler-module/hippo:moduleconfig'
+            in CMS Console and edit properties. See <a href="install.html">Installation</a> page for detail.
+          </li>
+        </ol>
+        <p>
+          <em>Note: cmis.replication.source.rootPath should be properly set to the existing Nuxeo workspace or section path.</em>
+        </p>
+      </subsection>
+
+      <subsection name="Start CMS and SITE Applications">
+        <ol>
+          <li>
+           Start Tomcat with Cargo Plugin
+           <br/>
+            <source><![CDATA[
+$ mvn -P cargo.run
+            ]]></source>
+          </li>
+        </ol>
+      </subsection>
+
+      <subsection name="Testing">
+        <ol>
+          <li>Create a workspace with any name. (e.g, 'testws') in Nuxeo DM Server</li>
+          <li>Create a section named 'marketing'.</li>
+          <li>Add some documents with file attachments into workspace and publish those into the 'marketing' section.</li>
+          <li>
+            Check if those added binary files are shown in a Hippo Repository Asset folder within about 1 minute.
+          </li>
+          <li>
+            Open a document in CMS and add link(s) to asset(s).
+          </li>
+          <li>
+            Search documents and assets in the SITE application.
+          </li>
+        </ol>
+        <p>
+          As you can see below, you need to add a workspace to add a file.
+          <br/>
+          <img src="images/1.04.xx/nuxscreen1.png" alt="Screenshot 1" style="BORDER: lightgrey solid 1px"/>
+        </p>
+        <p>
+          After adding a file in a workspace, you need to publish the file to a section.
+          <br/>
+          <img src="images/1.04.xx/nuxscreen2.png" alt="Screenshot 2" style="BORDER: lightgrey solid 1px"/>
+        </p>
+        <p>
+          Now you can see the document you published in your workspace as shown below.
+          <br/>
+          <img src="images/1.04.xx/nuxscreen3.png" alt="Screenshot 3" style="BORDER: lightgrey solid 1px"/>
+        </p>
+        <p>
+          After about 1 minute, you may see the replicated documents in the specified assets folder
+          from the Nuxeo DM Server to Hippo Repository.
+          <br/>
+          <img src="images/1.04.xx/nuxscreen4.png" alt="Screenshot 4" style="BORDER: lightgrey solid 1px"/>
+        </p>
+        <p>
+          Now, you can search the asset documents by the contents in your website.
+          <br/>
+          <img src="images/1.04.xx/nuxscreen5.png" alt="Screenshot 5" style="BORDER: lightgrey solid 1px"/>
+        </p>
+        <p>
+          <em>NOTE: </em>
+          By default, the search component searches only non-asset documents. Also, its default template JSP page
+          cannot deal with asset document beans.
+          Therefore, the demo project contains custom component implementation and template JSP page to allow to search asset documents as well.
+          See the following code for detail:
+        </p>
+        <ul>
+          <li>http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk/site/src/main/java/org/onehippo/forge/cmisreplication/demo/components/Search.java</li>
+          <li>http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk/site/src/main/webapp/WEB-INF/jsp/search/main/content.jsp</li>
+        </ul>
+      </subsection>
+
+      <subsection name="References">
+        <ul>
+          <li><a href="http://doc.nuxeo.com/display/NXDOC/CMIS+for+Nuxeo">CMIS for Nuxeo</a></li>
+        </ul>
+      </subsection>
+
+    </section>
+  </body>
+</document>

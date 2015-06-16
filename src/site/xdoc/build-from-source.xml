@@ -23,7 +23,7 @@
       <subsection name="Requirements">
         <ul>
           <li>
-            <p>Java 1.6 JDK</p>
+            <p>Java 1.8 JDK</p>
           </li>
           <li>
             <p>Maven 3</p>

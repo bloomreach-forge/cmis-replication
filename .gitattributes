@@ -20,6 +20,16 @@ src/site/resources/images/1.01.xx/nuxscreen2.png -text
 src/site/resources/images/1.01.xx/nuxscreen3.png -text
 src/site/resources/images/1.01.xx/nuxscreen4.png -text
 src/site/resources/images/1.01.xx/nuxscreen5.png -text
+src/site/resources/images/1.02.xx/nuxscreen1.png -text
+src/site/resources/images/1.02.xx/nuxscreen2.png -text
+src/site/resources/images/1.02.xx/nuxscreen3.png -text
+src/site/resources/images/1.02.xx/nuxscreen4.png -text
+src/site/resources/images/1.02.xx/nuxscreen5.png -text
+src/site/resources/images/1.04.xx/nuxscreen1.png -text
+src/site/resources/images/1.04.xx/nuxscreen2.png -text
+src/site/resources/images/1.04.xx/nuxscreen3.png -text
+src/site/resources/images/1.04.xx/nuxscreen4.png -text
+src/site/resources/images/1.04.xx/nuxscreen5.png -text
 src/site/resources/images/cmisreplication-config.png -text
 src/site/resources/images/nuxscreen1.png -text
 src/site/resources/images/nuxscreen2.png -text
@@ -30,8 +40,11 @@ src/site/site.xml -text svneol=unset#text/plain
 src/site/xdoc/1.01.xx/demo-with-nuxeo-5.4.xml -text
 src/site/xdoc/1.01.xx/index.xml -text
 src/site/xdoc/1.01.xx/install.xml -text
+src/site/xdoc/1.02.xx/demo-with-nuxeo-5.6.xml -text svneol=unset#text/plain
+src/site/xdoc/1.02.xx/index.xml -text svneol=unset#text/plain
+src/site/xdoc/1.02.xx/install.xml -text svneol=unset#text/plain
 src/site/xdoc/build-from-source.xml -text svneol=unset#text/plain
-src/site/xdoc/demo-with-nuxeo-5.6.xml -text svneol=unset#text/plain
+src/site/xdoc/demo-with-nuxeo-6.0.xml -text svneol=unset#text/plain
 src/site/xdoc/index.xml -text svneol=unset#text/plain
 src/site/xdoc/install.xml -text svneol=unset#text/plain
 src/site/xdoc/release-notes.xml -text svneol=unset#text/plain

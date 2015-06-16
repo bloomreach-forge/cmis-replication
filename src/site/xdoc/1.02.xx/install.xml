@@ -1,0 +1,193 @@
+<?xml version="1.0"?><!--
+    Copyright 2011 Hippo Licensed under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under
+    the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+    OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and
+    limitations under the License.
+  --><!DOCTYPE document PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+  <properties>
+    <title>How to use CMIS Replication Module</title>
+  </properties>
+  <body>
+    <section name="How to use CMIS Replication Module">
+      <subsection name="Prerequisites">
+        <p>
+          These instruction assumes that you have maven 3 based build for your site.
+        </p>
+      </subsection>
+      <subsection name="Maven 2 repository">
+        <p>Add this repository to your root pom.xml:</p>
+        <source><![CDATA[
+    <repository>
+      <id>hippo-maven2-forge</id>
+      <name>Hippo Maven 2 Forge</name>
+      <url>http://maven.onehippo.com/maven2-forge</url>
+    </repository>]]></source>
+      </subsection>
+
+      <subsection name="Specifying the dependency in a CMS/Repository Application project">
+        <p>
+          Add the following dependency in your CMS/Repository Application project.
+          CMIS Replication Module depends on Hippo Repository Scheduler Module which has been
+          available since Hippo CMS 7.8.3.
+        </p>
+        <source><![CDATA[
+    <!-- CMIS Replication Module -->
+    <dependency>
+      <groupId>org.onehippo.forge.cmisreplication</groupId>
+      <artifactId>cmisreplication</artifactId>
+      <version>${forge.cmisreplication.version}</version>
+    </dependency>
+        ]]></source>
+        <p>
+          With the dependency addtion of CMIS Replication Module,
+          an asset document replicated from CMIS Repository will have the following mixin type:
+        </p>
+        <source><![CDATA[
+[cmisreplication:cmisdocument] mixin
+- cmisreplication:objectId (string)
+- cmisreplication:name (string)
+- cmisreplication:createdBy (string)
+- cmisreplication:creationDate (date)
+- cmisreplication:lastModifiedBy (string)
+- cmisreplication:lastModificationDate (date)
+- cmisreplication:versionLabel (string)
+        ]]></source>
+        <p>
+          All the new property definitions with 'cmisreplication' prefix are for CMIS Document Metadata.
+        </p>
+      </subsection>
+
+      <subsection name="Configuring CMIS Replication Scheduler">
+        <p>
+          By default, CMIS Replication Module becomes active by the Hippo Repository Daemon Module configuration at '/hippo:configuration/hippo:modules/cmisreplication-scheduler-module'.
+          The daemon module initializes a CRON style scheduler task to replication CMIS documents to Hippo Repository,
+          by using Hippo Repository Scheduler module based on the configured CRON expression.
+        </p>
+        <img src="images/cmisreplication-config.png" alt="CMIS Replication Scheduler Configuration" style="BORDER: lightgrey solid 1px"/>
+        <p>
+          Here are explanations on all the configurable properties:
+        </p>
+        <table>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Example Value</th>
+            <th>Default Value</th>
+          </tr>
+          <tr>
+            <td>cronexpression</td>
+            <td>String</td>
+            <td>
+              CRON style Hippo Repository Scheduler configuration.
+              <br/>
+              See <a href="http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger" target="_new">Quartz CronTrigger Tutorial</a>
+              for detail on CRON expressions.
+            </td>
+            <td>0/10 * * * * ?</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmis.replication.migrateCMISDocumentsToHippo</td>
+            <td>Boolean</td>
+            <td>
+              Flag whether the replication from source to target is on/off
+            </td>
+            <td>true</td>
+            <td>true</td>
+          </tr>
+          <tr>
+            <td>cmis.replication.deleteHippoDocumentsWhenCMISDocumentsRemoved</td>
+            <td>Boolean</td>
+            <td>
+              Flag whether the replicated Hippo asset documents should be checked against the source CMIS documents to keep or remove the Hippo asset document.
+              So, if a source CMIS document is deleted, then its corresponding Hippo asset document is removed as well.
+            </td>
+            <td>true</td>
+            <td>true</td>
+          </tr>
+          <tr>
+            <td>cmis.replication.target.rootPath</td>
+            <td>String</td>
+            <td>
+              The target Hippo Repository Asset Documents Path where documents are replicated to
+            </td>
+            <td>/content/assets/marketing</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmis.replication.source.url</td>
+            <td>String</td>
+            <td>
+              CMIS Repository Server URL
+            </td>
+            <td>http://localhost:18080/nuxeo/atom/cmis</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmis.replication.source.repositoryId</td>
+            <td>String</td>
+            <td>
+              The Repository ID of the CMIS Repository
+            </td>
+            <td>default</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmis.replication.source.username</td>
+            <td>String</td>
+            <td>
+              The user name for CMIS Repository
+            </td>
+            <td>Administrator</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmis.replication.source.password</td>
+            <td>String</td>
+            <td>
+              The password for CMIS Repository
+            </td>
+            <td>Administrator</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmis.replication.source.rootPath</td>
+            <td>String</td>
+            <td>
+              The source CMIS Repository Document Path where documents are replicated from
+            </td>
+            <td>/default-domain/sections/marketing</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cmis.replication.source.maxItemsPerPage</td>
+            <td>Long</td>
+            <td>
+              The max number of items per batch for operations that return lists, passed to the org.apache.chemistry.opencmis.client.api.OperationContext.
+            </td>
+            <td>500</td>
+            <td>500</td>
+          </tr>
+          <tr>
+            <td>cmis.replication.include.metadata.ids</td>
+            <td>String[]</td>
+            <td>
+              List of properties that will be synchronized with the replicated document.
+            </td>
+            <td>dc:description dc:subjects</td>
+            <td></td>
+          </tr>
+        </table>
+      </subsection>
+    </section>
+  </body>
+</document>

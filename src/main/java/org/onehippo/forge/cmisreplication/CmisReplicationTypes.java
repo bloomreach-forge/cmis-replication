@@ -37,11 +37,7 @@ public interface CmisReplicationTypes {
     public static final String HIPPOSTD_GALLERY_TYPE = "hippostd:gallerytype";
     public static final String HIPPOSTD_FOLDER_TYPE = "hippostd:foldertype";
 
-    /**
-     * @deprecated Since 1.02.00, {@link CMIS_DOCUMENT_MIXIN_TYPE} is used as mixin type to the default hippo example asset node type.
-     */
     public static final String EXAMPLE_ASSET_SET = "cmisreplication:exampleAssetSet";
-
     /**
      * Node Mixin type for nodes representing replicated CMIS document.
      */

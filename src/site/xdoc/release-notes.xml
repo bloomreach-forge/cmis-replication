@@ -37,9 +37,7 @@
         <ul>
           <li>Upgraded Hippo CMS Dependency to version 10</li>
           <li>Upgraded Apache Chemistry OpenCMIS to 0.13.0.</li>
-          <li>Used Hippo Repository Scheduler instead of using Spring Framework Scheduler (The dependency on Spring Daemon Module has been removed.)</li>
-          <li>Simplifying / Clarifying Configurations</li>
-          <li>Documentation on how to test / demonstrate with Nuxeo DM Server 5.6.</li>
+          <li>Documentation on how to test / demonstrate with Nuxeo DM Server 6.0.</li>
         </ul>
       </subsection>
       <subsection name="1.02.00">

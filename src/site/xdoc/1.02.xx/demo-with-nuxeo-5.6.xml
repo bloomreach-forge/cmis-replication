@@ -120,28 +120,28 @@ $ mvn -P cargo.run
         <p>
           As you can see below, you need to add a workspace to add a file.
           <br/>
-          <img src="images/nuxscreen1.png" alt="Screenshot 1" style="BORDER: lightgrey solid 1px"/>
+          <img src="../images/1.02.xx/nuxscreen1.png" alt="Screenshot 1" style="BORDER: lightgrey solid 1px"/>
         </p>
         <p>
           After adding a file in a workspace, you need to publish the file to a section.
           <br/>
-          <img src="images/nuxscreen2.png" alt="Screenshot 2" style="BORDER: lightgrey solid 1px"/>
+          <img src="../images/1.02.xx/nuxscreen2.png" alt="Screenshot 2" style="BORDER: lightgrey solid 1px"/>
         </p>
         <p>
           Now you can see the document you published in your workspace as shown below.
           <br/>
-          <img src="images/nuxscreen3.png" alt="Screenshot 3" style="BORDER: lightgrey solid 1px"/>
+          <img src="../images/1.02.xx/nuxscreen3.png" alt="Screenshot 3" style="BORDER: lightgrey solid 1px"/>
         </p>
         <p>
           After about 1 minute, you may see the replicated documents in the specified assets folder
           from the Nuxeo DM Server to Hippo Repository.
           <br/>
-          <img src="images/nuxscreen4.png" alt="Screenshot 4" style="BORDER: lightgrey solid 1px"/>
+          <img src="../images/1.02.xx/nuxscreen4.png" alt="Screenshot 4" style="BORDER: lightgrey solid 1px"/>
         </p>
         <p>
           Now, you can search the asset documents by the contents in your website.
           <br/>
-          <img src="images/nuxscreen5.png" alt="Screenshot 5" style="BORDER: lightgrey solid 1px"/>
+          <img src="../images/1.02.xx/nuxscreen5.png" alt="Screenshot 5" style="BORDER: lightgrey solid 1px"/>
         </p>
         <p>
           <em>NOTE: </em>

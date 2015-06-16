@@ -35,7 +35,7 @@
       <sv:value>Administrator</sv:value>
     </sv:property>
     <sv:property sv:name="cmis.replication.source.rootPath" sv:type="String">
-      <sv:value>/default-domain/sections/marketing</sv:value>
+      <sv:value>/default-domain/workspaces/marketing</sv:value>
     </sv:property>
     <sv:property sv:name="cmis.replication.source.maxItemsPerPage" sv:type="Long">
       <sv:value>500</sv:value>

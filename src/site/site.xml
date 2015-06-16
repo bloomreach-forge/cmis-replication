@@ -28,8 +28,14 @@
 
     <menu name="Usage">
       <item name="Installation" href="install.html" />
-      <item name="Demo with Nuxeo DM Server 5.6" href="demo-with-nuxeo-5.6.html" />
+      <item name="Demo with Nuxeo DM Server 6.0" href="demo-with-nuxeo-6.0.html" />
       <item name="Build from source" href="build-from-source.html" />
+    </menu>
+
+    <menu name="1.02.xx Documentation">
+      <item name="Home" href="1.02.xx/index.html" />
+      <item name="Installation" href="1.02.xx/install.html" />
+      <item name="Demo with Nuxeo DM Server 5.4" href="1.02.xx/demo-with-nuxeo-5.6.html" />
     </menu>
 
     <menu name="1.01.xx Documentation (Deprecated)">
