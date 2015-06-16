@@ -13,6 +13,12 @@
   -->
 <project name="CMIS Replication Module">
 
+  <skin>
+    <groupId>org.onehippo.forge.mavenskin</groupId>
+    <artifactId>forge-maven-skin</artifactId>
+    <version>1.02.02</version>
+  </skin>
+
   <publishDate format="d MMMM yyyy" />
 
   <bannerLeft>
