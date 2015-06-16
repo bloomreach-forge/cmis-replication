@@ -97,7 +97,7 @@ $ mvn -P cargo.run
 
       <subsection name="Testing">
         <ol>
-          <li>Create a workspace with any name. (e.g, 'testws') in Nuxeo DM Server</li>
+          <li>Create a documetn workspace with any name. (e.g, 'marketing') in Nuxeo DM Server</li>
           <li>Create a section named 'marketing'.</li>
           <li>Add some documents with file attachments into workspace and publish those into the 'marketing' section.</li>
           <li>
