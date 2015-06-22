@@ -134,7 +134,7 @@ public class CmisDocumentsReplicator {
 
             List<String> documentIds = new LinkedList<String>();
             fillAllDocumentIdsFromCMISRepository(seed, documentIds);
-
+            log.debug("Found {} numnber of documents", documentIds.size());
             for (String documentId : documentIds) {
                 Document document = null;
 
@@ -253,10 +253,9 @@ public class CmisDocumentsReplicator {
 
     private void fillAllDocumentIdsFromCMISRepository(CmisObject seed, List<String> documentIds) {
         String baseType = seed.getBaseType().getId();
-
-        if (BaseTypeId.CMIS_DOCUMENT.equals(baseType)) {
+        if (BaseTypeId.CMIS_DOCUMENT.value().equals(baseType)) {
             documentIds.add(seed.getId());
-        } else if (BaseTypeId.CMIS_FOLDER.equals(baseType)) {
+        } else if (BaseTypeId.CMIS_FOLDER.value().equals(baseType)) {
             ItemIterable<CmisObject> children = ((Folder) seed).getChildren();
 
             if (children.getTotalNumItems() > 0) {
