@@ -33,7 +33,7 @@
       </table>
     </section>
     <section name="Release Notes">
-      <subsection name="1.04.00">
+      <subsection name="1.04.01">
         <ul>
           <li>Fixed bug, which got introduced after the upgrade to Apache Chemistry 0.13.0.</li>
         </ul>
