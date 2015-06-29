@@ -123,6 +123,11 @@
       <name>Hippo maven 2 repository.</name>
       <url>http://maven.onehippo.com/maven2/</url>
     </repository>
+    <repository>
+      <id>hippo-forge</id>
+      <name>Hippo maven 2 forge repository.</name>
+      <url>http://maven.onehippo.com/maven2-forge/</url>
+    </repository>
   </repositories>
 
   <dependencies>
