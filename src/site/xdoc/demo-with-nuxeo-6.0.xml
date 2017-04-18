@@ -57,17 +57,24 @@ $ ./nuxeoctl console
         </ol>
       </subsection>
 
-      <subsection name="Build CMIS Replication Demo Application">
-        <ol>
-          <li>
-            Check out http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk. For example,
-            <br/>
-            <pre>$ svn checkout http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk cmisreplication-demo</pre>
-          </li>
-          <li>
-            Build with `mvn clean verify'
-          </li>
-        </ol>
+      <subsection name="Run CMIS Replication Demo Application">
+        <p>
+          Fork me on GitHub: <a href="https://github.com/onehippo-forge/cmis-replication" target="_blank">https://github.com/onehippo-forge/cmis-replication</a>.
+        </p>
+        <p>
+          Build the project using Maven:
+        </p>
+        <div class="brush: bash">
+        <source>$ mvn install</source>
+        </div>
+        <p>And, build and run the demo in the <code>demo</code> subfolder.</p>
+        <div class="brush: bash">
+        <source><![CDATA[
+$ cd demo
+$ mvn clean package
+$ mvn -P cargo.run
+        ]]></source>
+        </div>
       </subsection>
 
       <subsection name="Configure CMIS Repository Source and HIPPO Repository Target">
@@ -81,18 +88,6 @@ $ ./nuxeoctl console
         <p>
           <em>Note: cmis.replication.source.rootPath should be properly set to the existing Nuxeo workspace or section path.</em>
         </p>
-      </subsection>
-
-      <subsection name="Start CMS and SITE Applications">
-        <ol>
-          <li>
-           Start Tomcat with Cargo Plugin
-           <br/>
-            <source><![CDATA[
-$ mvn -P cargo.run
-            ]]></source>
-          </li>
-        </ol>
       </subsection>
 
       <subsection name="Testing">
@@ -144,8 +139,8 @@ $ mvn -P cargo.run
           See the following code for detail:
         </p>
         <ul>
-          <li>http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk/site/src/main/java/org/onehippo/forge/cmisreplication/demo/components/Search.java</li>
-          <li>http://forge.onehippo.org/svn/cmisreplication/cmisreplication-demo/trunk/site/src/main/webapp/WEB-INF/jsp/search/main/content.jsp</li>
+          <li>https://github.com/onehippo-forge/cmis-replication/tree/master/demo/site/src/main/java/org/onehippo/forge/cmisreplication/demo/components/Search.java</li>
+          <li>https://github.com/onehippo-forge/cmis-replication/tree/master/demo/site/src/main/webapp/WEB-INF/jsp/search/main/content.jsp</li>
         </ul>
       </subsection>
 

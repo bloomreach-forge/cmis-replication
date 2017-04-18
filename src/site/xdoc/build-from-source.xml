@@ -20,32 +20,16 @@
   </properties>
   <body>
     <section name="Building from source">
-      <subsection name="Requirements">
-        <ul>
-          <li>
-            <p>Java 1.8 JDK</p>
-          </li>
-          <li>
-            <p>Maven 3</p>
-          </li>
-          <li>
-            <p>Subversion client</p>
-          </li>
-        </ul>
-      </subsection>
-      <subsection name="Checkout the source code">
+      <subsection name="Fork me on GitHub">
         <p>
-          Check out the trunk source code from the SVN repository:
+          Fork me on GitHub: <a href="https://github.com/onehippo-forge/cmis-replication" target="_blank">https://github.com/onehippo-forge/cmis-replication</a>.
         </p>
-        <source>svn co http://forge.onehippo.org/svn/cmisreplication/cmisreplication/trunk cmisreplication</source>
         <p>
           Build the project using Maven:
         </p>
-        <source>mvn install</source>
-        <p>
-          Build all the reports and the site (requires Maven 3):
-        </p>
-        <source>mvn site</source>
+        <div class="brush: bash">
+        <source>$ mvn install</source>
+        </div>
       </subsection>
     </section>
   </body>

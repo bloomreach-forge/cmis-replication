@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sv:node xmlns:ae="http://www.onehippo.org/jcr/autoexport/1.0" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" ae:id="cmisreplication-demo" sv:name="hippo:initialize">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>hippo:initializefolder</sv:value>
+  </sv:property>
+
+  <sv:node sv:name="cmisreplicationdemo-content">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>hippo:initializeitem</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:sequence" sv:type="Double">
+      <sv:value>30053</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:contentresource" sv:type="String">
+      <sv:value>content.xml</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:contentroot" sv:type="String">
+      <sv:value>/</sv:value>
+    </sv:property>
+  </sv:node>
+
+  <!-- Content -->
+  <sv:node sv:name="cmisreplicationdemo-documents">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>hippo:initializeitem</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:sequence" sv:type="Double">
+      <sv:value>30400</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:contentresource" sv:type="String">
+      <sv:value>content/documents/cmisreplication-demo.xml</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:contentroot" sv:type="String">
+      <sv:value>/content/documents</sv:value>
+    </sv:property>
+  </sv:node>
+
+  <!-- Gallery -->
+  <sv:node sv:name="cmisreplicationdemo-gallery">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>hippo:initializeitem</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:sequence" sv:type="Double">
+      <sv:value>30500</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:contentresource" sv:type="String">
+      <sv:value>content/gallery/cmisreplication-demo.xml</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:contentroot" sv:type="String">
+      <sv:value>/content/gallery</sv:value>
+    </sv:property>
+  </sv:node>
+
+<sv:node sv:name="cmisreplication-demo-content-assets-marketing">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>hippo:initializeitem</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:sequence" sv:type="Double">
+      <sv:value>30054.0</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:contentresource" sv:type="String">
+      <sv:value>content/assets/marketing.xml</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:contentroot" sv:type="String">
+      <sv:value>/content/assets</sv:value>
+    </sv:property>
+  </sv:node>
+
+</sv:node>

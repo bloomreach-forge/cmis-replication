@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0          http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.onehippo.forge.cmisreplication</groupId>
+    <artifactId>cmisreplication-demo</artifactId>
+    <version>1.04.02-SNAPSHOT</version>
+  </parent>
+
+  <name>CMIS Replication Demo Bootstrap</name>
+  <description>CMIS Replication Demo Bootstrap</description>
+  <artifactId>cmisreplication-demo-bootstrap</artifactId>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>configuration</module>
+    <module>content</module>
+    <module>webfiles</module>
+  </modules>
+
+</project>
