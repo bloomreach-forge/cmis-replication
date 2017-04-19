@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/onehippo-forge/cmis-replication.svg?branch=develop)](https://travis-ci.org/onehippo-forge/cmis-replication)
 
 # CMIS Replication
 
