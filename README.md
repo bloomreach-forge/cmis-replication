@@ -6,7 +6,8 @@
 As of 2017-07-14, this project is retired!
 This site is kept online for archiving purposes for the time being.
 Due to the lack of a developer community, the codebase was no longer actively maintained
-and the synchronization based integration of this project has been too problematic to use in production in many cases.
+and the synchronization based integration (between CMIS repository and JCR repository) of
+this project has been too problematic to use in production in many cases.
 The team therefore had no other choice but to retire this project.
 ```
 
