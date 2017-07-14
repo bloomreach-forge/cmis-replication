@@ -1,5 +1,15 @@
 [![Build Status](https://travis-ci.org/onehippo-forge/cmis-replication.svg?branch=develop)](https://travis-ci.org/onehippo-forge/cmis-replication)
 
+# Retired Project!!!
+
+```
+As of 2017-07-14, this project is retired!
+This site is kept online for archiving purposes for the time being.
+Due to the lack of a developer community, the codebase was no longer actively maintained
+and the synchronization based integration of this project has been too problematic to use in production in many cases.
+The team therefore had no other choice but to retire this project.
+```
+
 # CMIS Replication
 
 CMIS Replication Module provides replication of documents from CMIS repository to Hippo Repsitory. CMIS Replication Module reads documents from a dedicated (normally published) CMIS folder and upload the documents to a specified assets folder in Hippo Repository with CMIS metadata.
