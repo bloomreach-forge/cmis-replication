@@ -17,6 +17,20 @@
   </properties>
   <body>
     <section name="Introduction">
+
+      <div class="alert alert-danger">
+        As of 2017-07-14, this project is retired!
+        This site is kept online for archiving purposes for the time being.
+        Due to the lack of a developer community, the codebase was no longer actively maintained
+        and the synchronization based integration (between CMIS repository and JCR repository) of
+        this project has been too problematic to use in production in many cases.
+        The team therefore had no other choice but to retire this project.
+        If you are looking for an integration library for a CMIS repository,
+        please consider using <a href="https://onehippo-forge.github.io/external-document-picker/">Hippo CMS External Document Picker Base</a> plugin
+        and <a href="https://www.onehippo.org/12/library/concepts/crisp-api/introduction.html">CRISP</a>
+        API as one of alternatives.
+      </div>
+
       <subsection name="What is CMIS Replication Module?">
         <p>
           CMIS Replication Module provides replication of documents from CMIS repository to Hippo Repsitory.
