@@ -50,7 +50,7 @@
     <plugin.project-info-reports.version>2.3.1</plugin.project-info-reports.version>
     <plugin.release.version>2.5.2</plugin.release.version>
     <plugin.resources.version>2.5</plugin.resources.version>
-    <plugin.site.version>3.3</plugin.site.version>
+    <plugin.site.version>3.6</plugin.site.version>
     <plugin.source.version>2.4</plugin.source.version>
     <plugin.surefire.version>2.9</plugin.surefire.version>
     <plugin.surefire-report.version>2.9</plugin.surefire-report.version>
