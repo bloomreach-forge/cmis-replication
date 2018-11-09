@@ -26,7 +26,7 @@
         this project has been too problematic to use in production in many cases.
         The team therefore had no other choice but to retire this project.
         If you are looking for an integration library for a CMIS repository,
-        please consider using <a href="https://onehippo-forge.github.io/external-document-picker/">Hippo CMS External Document Picker Base</a> plugin
+        please consider using <a href="https://bloomreach-forge.github.io/external-document-picker/">Hippo CMS External Document Picker Base</a> plugin
         and <a href="https://www.onehippo.org/12/library/concepts/crisp-api/introduction.html">CRISP</a>
         API as one of alternatives.
       </div>

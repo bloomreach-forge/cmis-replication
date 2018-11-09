@@ -19,7 +19,7 @@
   <groupId>org.onehippo.forge.cmisreplication</groupId>
   <artifactId>cmisreplication</artifactId>
   <version>1.04.02-SNAPSHOT</version>
-  <url>https://onehippo-forge.github.io/cmis-replication/</url>
+  <url>https://bloomreach-forge.github.io/cmis-replication/</url>
 
   <properties>
 
@@ -90,9 +90,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git@github.com:onehippo-forge/cmis-replication.git</connection>
-    <developerConnection>scm:git:git@github.com:onehippo-forge/cmis-replication.git</developerConnection>
-    <url>https://github.com/onehippo-forge/cmis-replication.git</url>
+    <connection>scm:git:git@github.com:bloomreach-forge/cmis-replication.git</connection>
+    <developerConnection>scm:git:git@github.com:bloomreach-forge/cmis-replication.git</developerConnection>
+    <url>https://github.com/bloomreach-forge/cmis-replication.git</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -103,7 +103,7 @@
 
   <ciManagement>
     <system>Travis CI</system>
-    <url>https://travis-ci.org/onehippo-forge/cmis-replication</url>
+    <url>https://travis-ci.org/bloomreach-forge/cmis-replication</url>
   </ciManagement>
 
   <distributionManagement>
