@@ -23,7 +23,7 @@
     <bloomreach>
       <!-- Add a 'Fork me on GitHub' ribbon  -->
       <gitHub>
-        <projectId>bloomreach-forge/external-resources</projectId>
+        <projectId>bloomreach-forge/cmis-replication</projectId>
       </gitHub>
     </bloomreach>
   </custom>
