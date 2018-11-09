@@ -59,7 +59,7 @@ $ ./nuxeoctl console
 
       <subsection name="Run CMIS Replication Demo Application">
         <p>
-          Fork me on GitHub: <a href="https://github.com/onehippo-forge/cmis-replication" target="_blank">https://github.com/onehippo-forge/cmis-replication</a>.
+          Fork me on GitHub: <a href="https://github.com/bloomreach-forge/cmis-replication" target="_blank">https://github.com/bloomreach-forge/cmis-replication</a>.
         </p>
         <p>
           Build the project using Maven:
@@ -139,8 +139,8 @@ $ mvn -P cargo.run
           See the following code for detail:
         </p>
         <ul>
-          <li>https://github.com/onehippo-forge/cmis-replication/tree/master/demo/site/src/main/java/org/onehippo/forge/cmisreplication/demo/components/Search.java</li>
-          <li>https://github.com/onehippo-forge/cmis-replication/tree/master/demo/site/src/main/webapp/WEB-INF/jsp/search/main/content.jsp</li>
+          <li>https://github.com/bloomreach-forge/cmis-replication/tree/master/demo/site/src/main/java/org/onehippo/forge/cmisreplication/demo/components/Search.java</li>
+          <li>https://github.com/bloomreach-forge/cmis-replication/tree/master/demo/site/src/main/webapp/WEB-INF/jsp/search/main/content.jsp</li>
         </ul>
       </subsection>
 

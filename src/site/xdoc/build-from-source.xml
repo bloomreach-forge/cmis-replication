@@ -22,7 +22,7 @@
     <section name="Building from source">
       <subsection name="Fork me on GitHub">
         <p>
-          Fork me on GitHub: <a href="https://github.com/onehippo-forge/cmis-replication" target="_blank">https://github.com/onehippo-forge/cmis-replication</a>.
+          Fork me on GitHub: <a href="https://github.com/bloomreach-forge/cmis-replication" target="_blank">https://github.com/bloomreach-forge/cmis-replication</a>.
         </p>
         <p>
           Build the project using Maven:
